@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Tut.Model.SiteDbContext;
+using TutApp.Core.DTO_s;
 using TutApp.Data.Models;
 
 namespace TutApp.Api.Controllers
@@ -10,17 +13,20 @@ namespace TutApp.Api.Controllers
     public class ArticlesController : ControllerBase
     {
         private readonly SiteDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ArticlesController(SiteDbContext context)
+        public ArticlesController(IDbContextFactory<SiteDbContext> dbContextFactory, IMapper mapper)
         {
-            _context = context;
+            _context = dbContextFactory.CreateDbContext();
+            _mapper = mapper;
         }
 
         // GET: api/Articles
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Article>>> GetArticles()
+        public async Task<ActionResult<IEnumerable<ArticleGetDTO>>> GetArticles()
         {
-            return await _context.Articles.ToListAsync();
+            var articles = _mapper.Map<List<ArticleGetDTO>>(await _context.Articles.ToListAsync());
+            return articles;
         }
 
         // GET: api/Articles/5
