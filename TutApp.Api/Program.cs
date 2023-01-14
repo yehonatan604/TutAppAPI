@@ -5,27 +5,39 @@ using TutApp.Data.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+#region Add Services
 
 builder.Services.AddControllers();
 
+// Add DbContextFactory
 builder.Services.AddDbContextFactory<SiteDbContext>(options =>
 {
     options.UseSqlServer("Server=DESKTOP-T74S10A;Database=TutAppDb;Trusted_Connection = True;TrustServerCertificate= True;");
 });
 
+// Add IdentityCore
 builder.Services.AddIdentityCore<User>()
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<SiteDbContext>();
 
+// Add Cors
+builder.Services.AddCors(x => x.AddPolicy(
+    "myPolicy", c => c.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin())
+);
+
+#endregion Add Services
+
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+#region HTTP Request Pipeline
 
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
 app.MapControllers();
+
+#endregion HTTP Request Pipeline
 
 app.Run();
