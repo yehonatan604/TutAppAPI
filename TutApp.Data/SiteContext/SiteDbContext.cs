@@ -11,6 +11,7 @@ namespace Tut.Model.SiteDbContext
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<User> Users { get; set; }
 
         // Ctor
         public SiteDbContext(DbContextOptions options) : base(options) { }

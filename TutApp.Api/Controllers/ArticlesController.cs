@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Tut.Model.SiteDbContext;
@@ -10,6 +11,8 @@ namespace TutApp.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableQuery]
+
     public class ArticlesController : ControllerBase
     {
         private readonly SiteDbContext _context;
@@ -25,8 +28,17 @@ namespace TutApp.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ArticleGetDTO>>> GetArticles()
         {
-            var articles = _mapper.Map<List<ArticleGetDTO>>(await _context.Articles.ToListAsync());
-            return articles;
+            var originalArticles = await _context.Articles.ToListAsync();
+            var returnArticles = _mapper.Map<List<ArticleGetDTO>>(await _context.Articles.ToListAsync());
+
+            for (int i =0; i < originalArticles.Count; i++)
+            {
+                returnArticles[i].AuthorEmail = originalArticles[i].UserEmail;
+                returnArticles[i].AuthorName = _context.Users
+                    .SingleOrDefault(u => u.Email == returnArticles[i].AuthorEmail)!.UserName;
+            }
+
+            return returnArticles;
         }
 
         // GET: api/Articles/5

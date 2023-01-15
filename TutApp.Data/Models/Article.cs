@@ -8,7 +8,8 @@ namespace TutApp.Data.Models
         [Key] 
         public int Id { get; set; }
 
-        public string UserId { get; set; }
+        public string UserEmail { get; set; }
+
 
         [ForeignKey(nameof(ImageId))] 
         public int ImageId { get; set; }

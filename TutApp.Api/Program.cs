@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Tut.Model.SiteDbContext;
 using TutApp.Core.Configurations;
@@ -19,6 +20,11 @@ builder.Services.AddDbContextFactory<SiteDbContext>(options =>
 //Add AutoMapper
 
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
+
+builder.Services.AddControllers().AddOData(options =>
+{
+    options.Select().Filter().OrderBy();
+});
 
 // Add IdentityCore
 builder.Services.AddIdentityCore<User>()

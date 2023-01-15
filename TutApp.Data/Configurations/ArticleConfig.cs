@@ -21,7 +21,7 @@ namespace TutApp.Data.Configurations
                     Views = 35643,
 
                     ImageId = 1,
-                    UserId = "24d6f228-0992-4755-8a17-670efb9d10e0"
+                    UserEmail = "al@email.com"
                 },
                 new Article
                 {
@@ -34,7 +34,7 @@ namespace TutApp.Data.Configurations
                     Views = 324576,
 
                     ImageId = 2,
-                    UserId = "24d6f228-0992-4755-8a17-670efb9d10e0"
+                    UserEmail = "al@email.com"
                 },
                 new Article
                 {
@@ -47,7 +47,7 @@ namespace TutApp.Data.Configurations
                     Views = 15643,
 
                     ImageId = 3,
-                    UserId = "917d992e-763c-4560-be77-96b1ebca3654"
+                    UserEmail = "abed@email.com"
                 },
                 new Article
                 {
@@ -60,7 +60,7 @@ namespace TutApp.Data.Configurations
                     Views = 152643,
 
                     ImageId = 4,
-                    UserId = "8bb44c37-2465-4d1c-ba34-85ef3c0a3d89"
+                    UserEmail = "erik@email.com"
                 },
                 new Article
                 {
@@ -73,7 +73,7 @@ namespace TutApp.Data.Configurations
                     Views = 354342,
 
                     ImageId = 5,
-                    UserId = "24d6f228-0992-4755-8a17-670efb9d10e0"
+                    UserEmail = "al@email.com"
                 },
                 new Article
                 {
@@ -86,7 +86,7 @@ namespace TutApp.Data.Configurations
                     Views = 3453,
 
                     ImageId = 6,
-                    UserId = "8bb44c37-2465-4d1c-ba34-85ef3c0a3d89"
+                    UserEmail = "erik@email.com"
                 },
                 new Article
                 {
@@ -99,7 +99,7 @@ namespace TutApp.Data.Configurations
                     Views = 5685,
 
                     ImageId = 7,
-                    UserId = "8bb44c37-2465-4d1c-ba34-85ef3c0a3d89"
+                    UserEmail = "erik@email.com"
                 },
                 new Article
                 {
@@ -112,7 +112,7 @@ namespace TutApp.Data.Configurations
                     Views = 124,
 
                     ImageId = 8,
-                    UserId = "917d992e-763c-4560-be77-96b1ebca3654"
+                    UserEmail = "abed@email.com"
                 },
                 new Article
                 {
@@ -125,7 +125,7 @@ namespace TutApp.Data.Configurations
                     Views = 34564536,
 
                     ImageId = 9,
-                    UserId = "917d992e-763c-4560-be77-96b1ebca3654"
+                    UserEmail = "abed@email.com"
                 },
                 new Article
                 {
@@ -138,7 +138,7 @@ namespace TutApp.Data.Configurations
                     Views = 45643,
 
                     ImageId = 10,
-                    UserId = "917d992e-763c-4560-be77-96b1ebca3654"
+                    UserEmail = "abed@email.com"
                 },
                 new Article
                 {
@@ -151,7 +151,7 @@ namespace TutApp.Data.Configurations
                     Views = 356,
 
                     ImageId = 11,
-                    UserId = "8bb44c37-2465-4d1c-ba34-85ef3c0a3d89"
+                    UserEmail = "erik@email.com"
                 },
                 new Article
                 {
@@ -164,7 +164,7 @@ namespace TutApp.Data.Configurations
                     Views = 27643,
 
                     ImageId = 12,
-                    UserId = "24d6f228-0992-4755-8a17-670efb9d10e0"
+                    UserEmail = "al@email.com"
                 },
                 new Article
                 {
@@ -177,7 +177,7 @@ namespace TutApp.Data.Configurations
                     Views = 4565468,
 
                     ImageId = 13,
-                    UserId = "917d992e-763c-4560-be77-96b1ebca3654"
+                    UserEmail = "abed@email.com"
                 },
                 new Article
                 {
@@ -190,7 +190,7 @@ namespace TutApp.Data.Configurations
                     Views = 25643,
 
                     ImageId = 14,
-                    UserId = "917d992e-763c-4560-be77-96b1ebca3654"
+                    UserEmail = "abed@email.com"
                 },
                 new Article
                 {
@@ -203,7 +203,7 @@ namespace TutApp.Data.Configurations
                     Views = 5675656,
 
                     ImageId = 15,
-                    UserId = "8bb44c37-2465-4d1c-ba34-85ef3c0a3d89"
+                    UserEmail = "erik@email.com"
                 },
                 new Article
                 {
@@ -216,7 +216,7 @@ namespace TutApp.Data.Configurations
                     Views = 22643,
 
                     ImageId = 16,
-                    UserId = "24d6f228-0992-4755-8a17-670efb9d10e0"
+                    UserEmail = "al@email.com"
                 });
         }
     }

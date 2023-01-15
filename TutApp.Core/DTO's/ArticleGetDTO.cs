@@ -5,10 +5,11 @@ namespace TutApp.Core.DTO_s
     public class ArticleGetDTO
     {
         public int Id { get; set; }
-        public string UserId { get; set; }
+        public string AuthorName { get; set; }
+        public string AuthorEmail { get; set; }
         public int ImageId { get; set; }
 
-        public CategoryTypes category { get; set; }
+        public CategoryTypes Category { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public DateTime Created { get; set; }
