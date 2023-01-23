@@ -213,7 +213,7 @@ namespace TutApp.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageId = table.Column<int>(type: "int", nullable: false),
                     category = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -261,9 +261,9 @@ namespace TutApp.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2f2cbc04-f409-4b9c-a2dc-a9fd9c0c3fba", "f7cf8141-b9b9-4a7e-be7c-a8f545518a0b", "Creator", "CREATOR" },
-                    { "64b139ca-be87-4e65-ae56-c0799fa4af64", "b90635b3-eff5-425c-8067-b92fc4c1e0e6", "Admin", "ADMIN" },
-                    { "bf5c8717-1439-4b84-a516-f9ad3144b848", "2eb4dfaa-6521-4752-a2e8-c42d8b2bdc20", "User", "USER" }
+                    { "0a5cb87c-b7c2-4d61-a1a9-b11e46f33f0d", "782385d4-cb92-4204-8e59-ac97957633c8", "Creator", "CREATOR" },
+                    { "83843b3a-3e36-4623-a866-38ee0aa88771", "9bc2bed4-6316-46cc-8cb2-b5c33dd0d669", "Admin", "ADMIN" },
+                    { "e502c544-9d48-41b5-800b-e1815c6e3cd4", "9993dd5d-9275-41bf-adf5-3c67bb44ac1d", "User", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -271,13 +271,13 @@ namespace TutApp.Data.Migrations
                 columns: new[] { "Id", "AboutMe", "AccessFailedCount", "ConcurrencyStamp", "DOB", "Email", "EmailConfirmed", "FavCategoriesList", "HobbiesList", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "UserStatus", "UserType" },
                 values: new object[,]
                 {
-                    { "0032ec24-cb15-4ebd-9590-3628677759f1", null, 0, "5d9f23e0-aeec-4bf3-8eba-f607ff41b1fb", new DateTime(2023, 1, 12, 17, 32, 39, 88, DateTimeKind.Local).AddTicks(8261), "al@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "fcd05acb-d7fc-4455-a528-34e498c430bf", false, "Al Viss", 1, 2 },
-                    { "04f3cd0a-90b0-4344-9aa5-d09f678028d9", null, 0, "35cbec61-a6db-45a9-b22f-109a16072c28", new DateTime(2023, 1, 12, 17, 32, 39, 88, DateTimeKind.Local).AddTicks(8055), "melon@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "b245d328-cab4-430d-9e96-da82639be4fe", false, "Rickey Melon", 1, 1 },
-                    { "0ae95d2e-e38c-4f7f-a209-a73050ed4980", null, 0, "26753014-b064-4a6c-b6a5-b09b146d20c0", new DateTime(2023, 1, 12, 17, 32, 39, 88, DateTimeKind.Local).AddTicks(8229), "chan@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "39800db6-2db7-4b92-870c-526e36b2e91a", false, "Chan Don Ma", 1, 1 },
-                    { "3b9cd167-7aa7-4a7a-9de1-afec1ccf6f1f", null, 0, "b03c9d49-53f6-433e-b638-e442ed8194d6", new DateTime(2023, 1, 12, 17, 32, 39, 88, DateTimeKind.Local).AddTicks(8006), "admin@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "b967a2ff-89cf-4ee0-a8bc-93ec690c97ad", false, "Admin", 1, 3 },
-                    { "74369de8-1813-414d-ba1a-7087b15408b6", null, 0, "c8eb1a3d-28ae-41d5-97c0-f7f8fc34b49d", new DateTime(2023, 1, 12, 17, 32, 39, 88, DateTimeKind.Local).AddTicks(8066), "abed@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "574f79c4-8422-4d7c-b9bb-bb94983f0434", false, "Abed Zuhil", 1, 2 },
-                    { "95180cb2-67a6-461d-9bdd-1bc1aafb9a8b", null, 0, "a93dba8a-d313-4d3f-bacf-07746aa633c2", new DateTime(2023, 1, 12, 17, 32, 39, 88, DateTimeKind.Local).AddTicks(8296), "donna@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "fb0a30b0-d84e-4e91-a332-5f69eeeb17c9", false, "Donna Eyzer", 1, 1 },
-                    { "ad5ccf84-deaf-48e5-a41f-65e41936544a", null, 0, "a8ccb5b7-8fe7-443b-a2b3-8bfbfb90dd9f", new DateTime(2023, 1, 12, 17, 32, 39, 88, DateTimeKind.Local).AddTicks(8217), "erik@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "441ab71c-9b84-4e34-9961-d5ea6797dbff", false, "Erik Lemon", 1, 2 }
+                    { "119551e4-adcd-4cee-8b89-7a78417a96ad", null, 0, "1cfdd32e-0364-45c7-807d-fba9ebe53fcc", new DateTime(2023, 1, 20, 19, 31, 24, 865, DateTimeKind.Local).AddTicks(1991), "chan@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "f2e5eb5d-3cff-423b-8f14-d895b32c44a8", false, "Chan Don Ma", 1, 1 },
+                    { "351dd825-4fd4-4353-ab00-1136e54b05c0", null, 0, "665a09c8-351c-407e-a264-0c0a0e2ce3d1", new DateTime(2023, 1, 20, 19, 31, 24, 865, DateTimeKind.Local).AddTicks(2009), "donna@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "9b3f8bdf-0ddc-45a9-a75a-e740ef85a5bc", false, "Donna Eyzer", 1, 1 },
+                    { "79127fde-874b-4de6-9889-3bca6a200495", null, 0, "a87e427f-7a58-4141-9987-45edc8eb9bf6", new DateTime(2023, 1, 20, 19, 31, 24, 865, DateTimeKind.Local).AddTicks(1963), "melon@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "24c9da65-a6fb-4946-9acc-1f0d52b3a13a", false, "Rickey Melon", 1, 1 },
+                    { "a5890a87-fb43-4e05-8c7e-4c2a6d36bfc2", null, 0, "d9271532-3ae1-4246-a46a-8af033289e11", new DateTime(2023, 1, 20, 19, 31, 24, 865, DateTimeKind.Local).AddTicks(1982), "erik@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "0e8db7d6-33fc-4809-9a59-6a5f235cd590", false, "Erik Lemon", 1, 2 },
+                    { "c7ef1b9a-446f-4ca8-a8d7-f3a2a6ac22ee", null, 0, "77ab3d58-72ba-405a-959e-3c1fa66932cf", new DateTime(2023, 1, 20, 19, 31, 24, 865, DateTimeKind.Local).AddTicks(1999), "al@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "885bbf76-1248-4483-9b1a-bc5b36b6587a", false, "Al Viss", 1, 2 },
+                    { "c8fa182d-6112-4a35-99b1-23abc4c22c18", null, 0, "78290a1a-6aea-49d4-bede-27acc39db748", new DateTime(2023, 1, 20, 19, 31, 24, 865, DateTimeKind.Local).AddTicks(1922), "admin@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "d06624de-78be-4b46-b686-c32e5afc784a", false, "Admin", 1, 3 },
+                    { "fcd8c306-359d-4efd-a320-9fe04d2d33b8", null, 0, "491a2cb7-8132-43b0-9da7-f7a1c897dd18", new DateTime(2023, 1, 20, 19, 31, 24, 865, DateTimeKind.Local).AddTicks(1972), "abed@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "d723cadb-b37f-4005-9ab1-358a54cd7ad5", false, "Abed Zuhil", 1, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -291,16 +291,34 @@ namespace TutApp.Data.Migrations
                     { 4, "/assets/Images/programming4.png", "Programming4" },
                     { 5, "/assets/Images/iot1.png", "Iot1" },
                     { 6, "/assets/Images/iot2.png", "Iot2" },
-                    { 7, "/assets/Images/iot3.png", "Iot3" },
-                    { 8, "/assets/Images/iot4.png", "Iot4" },
                     { 9, "/assets/Images/internet1.png", "Internet1" },
                     { 10, "/assets/Images/internet2.png", "Internet2" },
                     { 11, "/assets/Images/internet3.png", "Internet3" },
-                    { 12, "/assets/Images/internet4.png", "Internet4" },
                     { 13, "/assets/Images/design1.png", "Design1" },
-                    { 14, "/assets/Images/design2.png", "Design2" },
-                    { 15, "/assets/Images/design3.png", "Design3" },
-                    { 16, "/assets/Images/design4.png", "Design4" }
+                    { 14, "/assets/Images/design2.png", "Design2" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Articles",
+                columns: new[] { "Id", "Content", "Created", "ImageId", "Stars", "Title", "UserEmail", "Views", "category" },
+                values: new object[,]
+                {
+                    { 1, "*", new DateTime(2021, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 5, "איך להשתמש ב-Github?", "al@email.com", 35643, 0 },
+                    { 2, "*", new DateTime(2021, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 3, "מה זה תכנות מונחה עצמים?", "al@email.com", 324576, 0 },
+                    { 3, "*", new DateTime(2021, 8, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 4, "מבוא לאנגולר", "abed@email.com", 15643, 0 },
+                    { 4, "*", new DateTime(2022, 1, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, 5, "תכנות אסינכרוני ב-JS", "erik@email.com", 152643, 0 },
+                    { 5, "*", new DateTime(2021, 5, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 4, "10 טיפים לבית החכם", "al@email.com", 354342, 2 },
+                    { 6, "*", new DateTime(2022, 6, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, 2, "איך לתכנת את שואב הדייסון שלכם?", "erik@email.com", 3453, 2 },
+                    { 7, "*", new DateTime(2022, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 1, "התקנת מנעול חכם לבית", "erik@email.com", 5685, 2 },
+                    { 8, "*", new DateTime(2020, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 6, 0, "5 מוצרים חכמים לכל בית", "abed@email.com", 124, 2 },
+                    { 9, "*", new DateTime(2022, 11, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), 9, 5, "איך להתקין חוסם פרסומות בדפדפן?", "abed@email.com", 34564536, 1 },
+                    { 10, "*", new DateTime(2022, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, 3, "מה זה קוד 404?", "abed@email.com", 45643, 1 },
+                    { 11, "*", new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 11, 1, "7 טיפים לגלישה בטוחה באינטרנט", "erik@email.com", 356, 1 },
+                    { 12, "*", new DateTime(2022, 11, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, 2, "המדריך המלא ל-Gmail", "al@email.com", 27643, 1 },
+                    { 13, "*", new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 13, 5, "איך לעשות רקע שקוף לתמונה?", "abed@email.com", 4565468, 3 },
+                    { 14, "*", new DateTime(2021, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), 14, 4, "המדריך המלא ל-Gimp", "abed@email.com", 25643, 3 },
+                    { 15, "*", new DateTime(2021, 5, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), 13, 5, "המדריך המלא ל-PhotoShop", "erik@email.com", 5675656, 3 },
+                    { 16, "*", new DateTime(2020, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 14, 0, "איך ליצור תמונות מונפשות?", "al@email.com", 22643, 3 }
                 });
 
             migrationBuilder.CreateIndex(

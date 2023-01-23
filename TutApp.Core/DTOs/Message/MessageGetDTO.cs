@@ -1,14 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using TutApp.Data.Models;
 
-namespace TutApp.Data.Models
+namespace TutApp.Core.DTOs
 {
-    public class Message
+    public class MessageGetDTO
     {
-        [Key] public int Id { get; set; }
-
         public string SenderEmail { get; set; }
+        public string SenderName { get; set; }
         public string ReciverEmail { get; set; }
+        public string ReciverName { get; set; }
 
         public string Title { get; set; }
         public string Content { get; set; }

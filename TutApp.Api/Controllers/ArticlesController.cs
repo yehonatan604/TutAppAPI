@@ -3,8 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
+using System.Diagnostics;
 using Tut.Model.SiteDbContext;
-using TutApp.Core.DTO_s;
+using TutApp.Core.DTOs;
 using TutApp.Data.Models;
 
 namespace TutApp.Api.Controllers
@@ -31,11 +32,11 @@ namespace TutApp.Api.Controllers
             var originalArticles = await _context.Articles.ToListAsync();
             var returnArticles = _mapper.Map<List<ArticleGetDTO>>(await _context.Articles.ToListAsync());
 
-            for (int i =0; i < originalArticles.Count; i++)
+            for (int i = 0; i < originalArticles.Count; i++)
             {
-                returnArticles[i].AuthorEmail = originalArticles[i].UserEmail;
-                returnArticles[i].AuthorName = _context.Users
-                    .SingleOrDefault(u => u.Email == returnArticles[i].AuthorEmail)!.UserName;
+                returnArticles[i].UserEmail = originalArticles[i].UserEmail;
+                returnArticles[i].UserName = _context.Users
+                    .SingleOrDefault(u => u.Email == returnArticles[i].UserEmail)!.UserName;
             }
 
             return returnArticles;
@@ -89,12 +90,15 @@ namespace TutApp.Api.Controllers
         // POST: api/Articles
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Article>> PostArticle(Article article)
+        [Route("addNewArticle")]
+        public async Task<ActionResult<ArticleGetDTO>> AddNewArticle(ArticleDTO articleDto)
         {
+            var article = _mapper.Map<Article>(articleDto); 
+            
             _context.Articles.Add(article);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetArticle", new { id = article.Id }, article);
+            return Ok(article);
         }
 
         // DELETE: api/Articles/5

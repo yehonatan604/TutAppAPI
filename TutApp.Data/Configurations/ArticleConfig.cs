@@ -98,7 +98,7 @@ namespace TutApp.Data.Configurations
                     Stars = 1,
                     Views = 5685,
 
-                    ImageId = 7,
+                    ImageId = 5,
                     UserEmail = "erik@email.com"
                 },
                 new Article
@@ -111,7 +111,7 @@ namespace TutApp.Data.Configurations
                     Stars = 0,
                     Views = 124,
 
-                    ImageId = 8,
+                    ImageId = 6,
                     UserEmail = "abed@email.com"
                 },
                 new Article
@@ -163,7 +163,7 @@ namespace TutApp.Data.Configurations
                     Stars = 2,
                     Views = 27643,
 
-                    ImageId = 12,
+                    ImageId = 10,
                     UserEmail = "al@email.com"
                 },
                 new Article
@@ -202,7 +202,7 @@ namespace TutApp.Data.Configurations
                     Stars = 5,
                     Views = 5675656,
 
-                    ImageId = 15,
+                    ImageId = 13,
                     UserEmail = "erik@email.com"
                 },
                 new Article
@@ -215,7 +215,7 @@ namespace TutApp.Data.Configurations
                     Stars = 0,
                     Views = 22643,
 
-                    ImageId = 16,
+                    ImageId = 14,
                     UserEmail = "al@email.com"
                 });
         }

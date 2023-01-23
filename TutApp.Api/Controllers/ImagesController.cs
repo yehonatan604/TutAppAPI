@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 using Microsoft.EntityFrameworkCore;
 using Tut.Model.SiteDbContext;
 using TutApp.Data.Models;
@@ -7,6 +8,7 @@ namespace TutApp.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableQuery]
     public class ImagesController : ControllerBase
     {
         private readonly SiteDbContext _context;

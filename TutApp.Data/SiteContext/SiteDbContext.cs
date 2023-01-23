@@ -24,6 +24,7 @@ namespace Tut.Model.SiteDbContext
             builder.ApplyConfiguration(new UserConfig());
             builder.ApplyConfiguration(new ImageConfig());
             builder.ApplyConfiguration(new ArticleConfig());
+            builder.ApplyConfiguration(new MessagesConfig());
         }
     }
 }

@@ -47,18 +47,6 @@ namespace TutApp.Data.Configurations
                 },
                 new Image
                 {
-                    Id = 7,
-                    Title = "Iot3",
-                    Location = "/assets/Images/iot3.png"
-                },
-                new Image
-                {
-                    Id = 8,
-                    Title = "Iot4",
-                    Location = "/assets/Images/iot4.png"
-                },
-                new Image
-                {
                     Id = 9,
                     Title = "Internet1",
                     Location = "/assets/Images/internet1.png"
@@ -77,12 +65,6 @@ namespace TutApp.Data.Configurations
                 },
                 new Image
                 {
-                    Id = 12,
-                    Title = "Internet4",
-                    Location = "/assets/Images/internet4.png"
-                },
-                new Image
-                {
                     Id = 13,
                     Title = "Design1",
                     Location = "/assets/Images/design1.png"
@@ -92,18 +74,6 @@ namespace TutApp.Data.Configurations
                     Id = 14,
                     Title = "Design2",
                     Location = "/assets/Images/design2.png"
-                },
-                new Image
-                {
-                    Id = 15,
-                    Title = "Design3",
-                    Location = "/assets/Images/design3.png"
-                },
-                new Image
-                {
-                    Id = 16,
-                    Title = "Design4",
-                    Location = "/assets/Images/design4.png"
                 });
         }
     }

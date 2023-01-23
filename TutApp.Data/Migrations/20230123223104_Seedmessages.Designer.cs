@@ -12,8 +12,8 @@ using Tut.Model.SiteDbContext;
 namespace TutApp.Data.Migrations
 {
     [DbContext(typeof(SiteDbContext))]
-    [Migration("20230112153349_seedRoles2")]
-    partial class seedRoles2
+    [Migration("20230123223104_Seedmessages")]
+    partial class Seedmessages
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,22 +54,22 @@ namespace TutApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "108b667c-bd42-4bb2-9f2a-f63e237f74eb",
-                            ConcurrencyStamp = "7150bc7b-93c9-4da9-8f2c-a0e06582b9dc",
+                            Id = "1c7f8ddf-918f-4c9c-b12e-5307fc091fb3",
+                            ConcurrencyStamp = "d11ef265-58aa-445e-a56f-8ca4f1837055",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "aa35a6c0-c34c-41be-ae09-f50c87c70335",
-                            ConcurrencyStamp = "122f26e7-9d94-4a51-b222-5e68a1d3334b",
+                            Id = "b57800ce-0925-4108-a5c9-be860f04b336",
+                            ConcurrencyStamp = "116ccc8c-0b30-4ba8-adf3-716756b7a516",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         },
                         new
                         {
-                            Id = "acbb2e0d-525b-485e-87dc-d58d9b118671",
-                            ConcurrencyStamp = "c60948d8-4b37-466e-b2f4-e43749c6f2c4",
+                            Id = "a95a8b18-5849-40ac-b73e-bc0e24c33425",
+                            ConcurrencyStamp = "246c85cf-3dd9-4c23-b576-a2789b0002b8",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -206,7 +206,7 @@ namespace TutApp.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UserEmail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -221,6 +221,200 @@ namespace TutApp.Data.Migrations
                     b.HasIndex("ImageId");
 
                     b.ToTable("Articles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Content = "*",
+                            Created = new DateTime(2021, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageId = 1,
+                            Stars = 5,
+                            Title = "איך להשתמש ב-Github?",
+                            UserEmail = "al@email.com",
+                            Views = 35643,
+                            category = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Content = "*",
+                            Created = new DateTime(2021, 6, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageId = 2,
+                            Stars = 3,
+                            Title = "מה זה תכנות מונחה עצמים?",
+                            UserEmail = "al@email.com",
+                            Views = 324576,
+                            category = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Content = "*",
+                            Created = new DateTime(2021, 8, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageId = 3,
+                            Stars = 4,
+                            Title = "מבוא לאנגולר",
+                            UserEmail = "abed@email.com",
+                            Views = 15643,
+                            category = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Content = "*",
+                            Created = new DateTime(2022, 1, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageId = 4,
+                            Stars = 5,
+                            Title = "תכנות אסינכרוני ב-JS",
+                            UserEmail = "erik@email.com",
+                            Views = 152643,
+                            category = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Content = "*",
+                            Created = new DateTime(2021, 5, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageId = 5,
+                            Stars = 4,
+                            Title = "10 טיפים לבית החכם",
+                            UserEmail = "al@email.com",
+                            Views = 354342,
+                            category = 2
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Content = "*",
+                            Created = new DateTime(2022, 6, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageId = 6,
+                            Stars = 2,
+                            Title = "איך לתכנת את שואב הדייסון שלכם?",
+                            UserEmail = "erik@email.com",
+                            Views = 3453,
+                            category = 2
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Content = "*",
+                            Created = new DateTime(2022, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageId = 5,
+                            Stars = 1,
+                            Title = "התקנת מנעול חכם לבית",
+                            UserEmail = "erik@email.com",
+                            Views = 5685,
+                            category = 2
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Content = "*",
+                            Created = new DateTime(2020, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageId = 6,
+                            Stars = 0,
+                            Title = "5 מוצרים חכמים לכל בית",
+                            UserEmail = "abed@email.com",
+                            Views = 124,
+                            category = 2
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Content = "*",
+                            Created = new DateTime(2022, 11, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageId = 9,
+                            Stars = 5,
+                            Title = "איך להתקין חוסם פרסומות בדפדפן?",
+                            UserEmail = "abed@email.com",
+                            Views = 34564536,
+                            category = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Content = "*",
+                            Created = new DateTime(2022, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageId = 10,
+                            Stars = 3,
+                            Title = "מה זה קוד 404?",
+                            UserEmail = "abed@email.com",
+                            Views = 45643,
+                            category = 1
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Content = "*",
+                            Created = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageId = 11,
+                            Stars = 1,
+                            Title = "7 טיפים לגלישה בטוחה באינטרנט",
+                            UserEmail = "erik@email.com",
+                            Views = 356,
+                            category = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Content = "*",
+                            Created = new DateTime(2022, 11, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageId = 10,
+                            Stars = 2,
+                            Title = "המדריך המלא ל-Gmail",
+                            UserEmail = "al@email.com",
+                            Views = 27643,
+                            category = 1
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Content = "*",
+                            Created = new DateTime(2021, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageId = 13,
+                            Stars = 5,
+                            Title = "איך לעשות רקע שקוף לתמונה?",
+                            UserEmail = "abed@email.com",
+                            Views = 4565468,
+                            category = 3
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Content = "*",
+                            Created = new DateTime(2021, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageId = 14,
+                            Stars = 4,
+                            Title = "המדריך המלא ל-Gimp",
+                            UserEmail = "abed@email.com",
+                            Views = 25643,
+                            category = 3
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Content = "*",
+                            Created = new DateTime(2021, 5, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageId = 13,
+                            Stars = 5,
+                            Title = "המדריך המלא ל-PhotoShop",
+                            UserEmail = "erik@email.com",
+                            Views = 5675656,
+                            category = 3
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Content = "*",
+                            Created = new DateTime(2020, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ImageId = 14,
+                            Stars = 0,
+                            Title = "איך ליצור תמונות מונפשות?",
+                            UserEmail = "al@email.com",
+                            Views = 22643,
+                            category = 3
+                        });
                 });
 
             modelBuilder.Entity("TutApp.Data.Models.Comment", b =>
@@ -274,6 +468,74 @@ namespace TutApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Images");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Location = "/assets/Images/programming1.png",
+                            Title = "Programming1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Location = "/assets/Images/programming2.png",
+                            Title = "Programming2"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Location = "/assets/Images/programming3.png",
+                            Title = "Programming3"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Location = "/assets/Images/programming4.png",
+                            Title = "Programming4"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Location = "/assets/Images/iot1.png",
+                            Title = "Iot1"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Location = "/assets/Images/iot2.png",
+                            Title = "Iot2"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Location = "/assets/Images/internet1.png",
+                            Title = "Internet1"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Location = "/assets/Images/internet2.png",
+                            Title = "Internet2"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Location = "/assets/Images/internet3.png",
+                            Title = "Internet3"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Location = "/assets/Images/design1.png",
+                            Title = "Design1"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Location = "/assets/Images/design2.png",
+                            Title = "Design2"
+                        });
                 });
 
             modelBuilder.Entity("TutApp.Data.Models.Message", b =>
@@ -291,11 +553,13 @@ namespace TutApp.Data.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ReciverId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("ReciverEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SenderId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("SenderEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
@@ -305,10 +569,6 @@ namespace TutApp.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ReciverId");
-
-                    b.HasIndex("SenderId");
 
                     b.ToTable("Messages");
                 });
@@ -404,16 +664,16 @@ namespace TutApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5731af55-cde7-4765-8cfb-397a6ef1d910",
+                            Id = "a1be2fc5-d3bc-4f9e-9722-8c18039d0371",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "17dfed29-c6a6-4f47-9622-9153e2cc31bc",
-                            DOB = new DateTime(2023, 1, 12, 17, 33, 49, 618, DateTimeKind.Local).AddTicks(3674),
+                            ConcurrencyStamp = "a15e4ce3-370e-4666-af62-bfdb2221d40c",
+                            DOB = new DateTime(2023, 1, 24, 0, 31, 4, 546, DateTimeKind.Local).AddTicks(2630),
                             Email = "admin@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Password = "123#Abc123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fd0ddf88-8fb3-43d4-84ac-5942d614bde0",
+                            SecurityStamp = "cbcf4c93-ca96-466d-aa9c-19071db83017",
                             TwoFactorEnabled = false,
                             UserName = "Admin",
                             UserStatus = 1,
@@ -421,16 +681,16 @@ namespace TutApp.Data.Migrations
                         },
                         new
                         {
-                            Id = "4503c7ba-fb3f-491e-aa25-e7dbdca68f24",
+                            Id = "893e6d85-4a09-4943-b123-559806648d2d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "61be3c86-5a3c-4a04-91fb-c45d6a9ceca2",
-                            DOB = new DateTime(2023, 1, 12, 17, 33, 49, 618, DateTimeKind.Local).AddTicks(3741),
+                            ConcurrencyStamp = "dec11f7a-6008-4b75-9d52-75dc4e8dc5b0",
+                            DOB = new DateTime(2023, 1, 24, 0, 31, 4, 546, DateTimeKind.Local).AddTicks(2669),
                             Email = "melon@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Password = "123#Abc123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "40755fa5-4c05-444e-ac7f-61eadb21a604",
+                            SecurityStamp = "84f214c0-2545-45e3-812c-ce6214d4e52d",
                             TwoFactorEnabled = false,
                             UserName = "Rickey Melon",
                             UserStatus = 1,
@@ -438,16 +698,16 @@ namespace TutApp.Data.Migrations
                         },
                         new
                         {
-                            Id = "79733a7a-601e-40bd-bbea-12020e001320",
+                            Id = "c33a4267-f23c-4e1d-927f-8d855566a25e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "01c40e4a-5138-4e0b-af77-f30c44180018",
-                            DOB = new DateTime(2023, 1, 12, 17, 33, 49, 618, DateTimeKind.Local).AddTicks(3753),
+                            ConcurrencyStamp = "50435a03-e987-4ca5-9e68-eec0547a0930",
+                            DOB = new DateTime(2023, 1, 24, 0, 31, 4, 546, DateTimeKind.Local).AddTicks(2677),
                             Email = "abed@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Password = "123#Abc123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "acdaa378-b0e0-4b99-90e4-089a8661f735",
+                            SecurityStamp = "44e77767-e75a-4788-83aa-812037416873",
                             TwoFactorEnabled = false,
                             UserName = "Abed Zuhil",
                             UserStatus = 1,
@@ -455,16 +715,16 @@ namespace TutApp.Data.Migrations
                         },
                         new
                         {
-                            Id = "c8ed1194-fda5-47b9-b798-7c93614c9b0d",
+                            Id = "e71b6d73-4f9c-416c-bcac-011d4798ccc8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6cc8bfd5-e87b-44ab-9fff-7c6275cd2714",
-                            DOB = new DateTime(2023, 1, 12, 17, 33, 49, 618, DateTimeKind.Local).AddTicks(3761),
+                            ConcurrencyStamp = "f11eeee7-c358-459b-85c3-6a28b4d635d9",
+                            DOB = new DateTime(2023, 1, 24, 0, 31, 4, 546, DateTimeKind.Local).AddTicks(2687),
                             Email = "erik@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Password = "123#Abc123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "469f7d96-72ef-4a4e-b369-aef370403758",
+                            SecurityStamp = "11c6e79d-ccb4-4afb-9372-1d757c290f10",
                             TwoFactorEnabled = false,
                             UserName = "Erik Lemon",
                             UserStatus = 1,
@@ -472,16 +732,16 @@ namespace TutApp.Data.Migrations
                         },
                         new
                         {
-                            Id = "764f9ebf-8a8b-4455-88c1-c9c3cefc6e2a",
+                            Id = "b0ca05cb-f4cd-4fea-8666-e68990d0cffc",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d6baefe6-f865-4dad-bb32-12fd63f003b4",
-                            DOB = new DateTime(2023, 1, 12, 17, 33, 49, 618, DateTimeKind.Local).AddTicks(3770),
+                            ConcurrencyStamp = "805cd4a7-5aa6-49c8-a1ad-a5bae7fc9daa",
+                            DOB = new DateTime(2023, 1, 24, 0, 31, 4, 546, DateTimeKind.Local).AddTicks(2695),
                             Email = "chan@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Password = "123#Abc123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "81247822-d3f6-4947-a2c6-e8acd3aa160a",
+                            SecurityStamp = "22933f07-e62a-4af2-af97-7e40aed26e24",
                             TwoFactorEnabled = false,
                             UserName = "Chan Don Ma",
                             UserStatus = 1,
@@ -489,16 +749,16 @@ namespace TutApp.Data.Migrations
                         },
                         new
                         {
-                            Id = "227a0623-220e-4cd9-9c30-dfb5d57ed8d1",
+                            Id = "be140225-40d7-4fbc-9537-6ad971abd87f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dcb66a54-4642-463f-8899-8855550d3f36",
-                            DOB = new DateTime(2023, 1, 12, 17, 33, 49, 618, DateTimeKind.Local).AddTicks(3780),
+                            ConcurrencyStamp = "d78371f5-7888-4264-91d8-71be320e4b35",
+                            DOB = new DateTime(2023, 1, 24, 0, 31, 4, 546, DateTimeKind.Local).AddTicks(2702),
                             Email = "al@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Password = "123#Abc123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6e134449-9e1b-460a-a596-835b0120805c",
+                            SecurityStamp = "caaa2d26-5ad6-43b0-b8fd-47522ad53ac7",
                             TwoFactorEnabled = false,
                             UserName = "Al Viss",
                             UserStatus = 1,
@@ -506,16 +766,16 @@ namespace TutApp.Data.Migrations
                         },
                         new
                         {
-                            Id = "9cd96d9d-9b51-45db-8add-e266e4b954ad",
+                            Id = "03bfd94c-128f-45a2-970c-bd45c6c21b35",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "231f3128-5e1d-4b88-95a9-122814400e54",
-                            DOB = new DateTime(2023, 1, 12, 17, 33, 49, 618, DateTimeKind.Local).AddTicks(3788),
+                            ConcurrencyStamp = "d63d0710-bfc9-42c7-8d59-cc49cd9060aa",
+                            DOB = new DateTime(2023, 1, 24, 0, 31, 4, 546, DateTimeKind.Local).AddTicks(2713),
                             Email = "donna@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             Password = "123#Abc123",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "53560d15-3844-4647-ac7b-8ae253d25c42",
+                            SecurityStamp = "90dec7e6-fe44-4ba1-b86f-b97c1607849a",
                             TwoFactorEnabled = false,
                             UserName = "Donna Eyzer",
                             UserStatus = 1,
@@ -594,21 +854,6 @@ namespace TutApp.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Article");
-                });
-
-            modelBuilder.Entity("TutApp.Data.Models.Message", b =>
-                {
-                    b.HasOne("TutApp.Data.Models.User", "Reciver")
-                        .WithMany()
-                        .HasForeignKey("ReciverId");
-
-                    b.HasOne("TutApp.Data.Models.User", "Sender")
-                        .WithMany()
-                        .HasForeignKey("SenderId");
-
-                    b.Navigation("Reciver");
-
-                    b.Navigation("Sender");
                 });
 
             modelBuilder.Entity("TutApp.Data.Models.Article", b =>

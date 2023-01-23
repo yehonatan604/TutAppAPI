@@ -1,18 +1,22 @@
 ﻿using TutApp.Data.Models;
 
-namespace TutApp.Core.DTO_s
+namespace TutApp.Core.DTOs
 {
-    public class ArticleGetDTO
+    public class ArticleDTO
     {
-        public int Id { get; set; }
-        public string AuthorName { get; set; }
-        public string AuthorEmail { get; set; }
+        public string UserName { get; set; }
+        public string UserEmail { get; set; }
         public int ImageId { get; set; }
 
         public CategoryTypes Category { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public DateTime Created { get; set; }
+    }
+
+    public class ArticleGetDTO : ArticleDTO
+    {
+        public int Id { get; set; }
         public int Stars { get; set; }
         public int Views { get; set; }
 
