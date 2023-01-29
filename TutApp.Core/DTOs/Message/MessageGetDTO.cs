@@ -4,6 +4,7 @@ namespace TutApp.Core.DTOs
 {
     public class MessageGetDTO
     {
+        public int Id { get; set; }
         public string SenderEmail { get; set; }
         public string SenderName { get; set; }
         public string ReciverEmail { get; set; }
