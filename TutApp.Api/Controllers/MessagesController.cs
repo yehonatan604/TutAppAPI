@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using Microsoft.EntityFrameworkCore;
-using Tut.Model.SiteDbContext;
+using TutApp.Core.Contracts;
 using TutApp.Core.DTOs;
 using TutApp.Data.Models;
 
@@ -13,21 +12,21 @@ namespace TutApp.Api.Controllers
     [EnableQuery]
     public class MessagesController : ControllerBase
     {
-        private readonly SiteDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IMessageRepository _repo;
 
-        public MessagesController(IDbContextFactory<SiteDbContext> dbContextFactory, IMapper mapper)
+        public MessagesController(IMapper mapper, IMessageRepository repo)
         {
-            _context = dbContextFactory.CreateDbContext();
             _mapper = mapper;
+            _repo = repo;
         }
 
         // GET: api/Messages
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MessageGetDTO>>> GetMessages()
         {
-            List<MessageGetDTO> messages = _mapper.Map<List<MessageGetDTO>>(await _context.Messages.ToListAsync());
-            messages.ForEach(msg => GetDetails(msg));
+            List<MessageGetDTO> messages = _mapper.Map<List<MessageGetDTO>>(await _repo.GetAllAsync());
+            messages.ForEach(msg => _repo.GetDetails(msg));
             return Ok(messages);
         }
 
@@ -35,14 +34,8 @@ namespace TutApp.Api.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<MessageGetDTO>> GetMessage(int id)
         {
-            var message = await _context.Messages.FindAsync(id);
-
-            if (message == null)
-            {
-                return NotFound();
-            }
-
-            return _mapper.Map<MessageGetDTO>(message);
+            var message = await _repo.GetAsync(id);
+            return message == null ? BadRequest(id) : Ok(_mapper.Map<MessageGetDTO>(message));
         }
 
         // PUT: api/Messages/5
@@ -55,23 +48,7 @@ namespace TutApp.Api.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(message).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MessageExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _repo.UpdateAsync(message);
 
             return NoContent();
         }
@@ -81,45 +58,23 @@ namespace TutApp.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Message>> PostMessage(Message message)
         {
-            _context.Messages.Add(message);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetMessage", new { id = message.Id }, message);
+            await _repo.AddAsync(message);
+            return CreatedAtAction("GetCountry", new { id = message.Id }, message);
         }
 
         // DELETE: api/Messages/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMessage(int id)
         {
-            var message = await _context.Messages.FindAsync(id);
-            if (message == null)
+            if (await _repo.GetAsync(id) == null)
             {
-                return NotFound();
+                return BadRequest(id);
             }
 
-            _context.Messages.Remove(message);
-            await _context.SaveChangesAsync();
-
+            await _repo.DeleteAsync(id);
             return NoContent();
         }
 
-        private bool MessageExists(int id)
-        {
-            return _context.Messages.Any(e => e.Id == id);
-        }
-
-        private MessageGetDTO GetDetails(MessageGetDTO messageDTO)
-        {
-            User sender =  _context.Users.SingleOrDefault(
-                user => user.Email == messageDTO.SenderEmail)!;
-
-            User reciver =  _context.Users.SingleOrDefault(
-                user => user.Email == messageDTO.ReciverEmail)!;
-
-            messageDTO.SenderName = sender.UserName;
-            messageDTO.ReciverName= reciver.UserName;
-
-            return messageDTO;
-        }
+        
     }
 }

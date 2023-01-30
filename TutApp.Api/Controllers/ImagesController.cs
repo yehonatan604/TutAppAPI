@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using TutApp.Core.Contracts;
-using TutApp.Core.Repository;
 using TutApp.Data.Models;
 
 namespace TutApp.Api.Controllers

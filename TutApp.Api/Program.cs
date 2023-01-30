@@ -31,6 +31,7 @@ builder.Services.AddControllers().AddOData(options =>
 //Add Repository
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
+builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 
 // Add IdentityCore
 builder.Services.AddIdentityCore<User>()
