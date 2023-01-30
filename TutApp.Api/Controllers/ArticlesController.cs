@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Internal;
-using System.Diagnostics;
-using Tut.Model.SiteDbContext;
+using TutApp.Core.Contracts;
 using TutApp.Core.DTOs;
 using TutApp.Data.Models;
 
@@ -16,44 +13,28 @@ namespace TutApp.Api.Controllers
 
     public class ArticlesController : ControllerBase
     {
-        private readonly SiteDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IArticleRepository _repo;
 
-        public ArticlesController(IDbContextFactory<SiteDbContext> dbContextFactory, IMapper mapper)
+        public ArticlesController(IMapper mapper, IArticleRepository repo)
         {
-            _context = dbContextFactory.CreateDbContext();
             _mapper = mapper;
+            _repo = repo;
         }
 
         // GET: api/Articles
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ArticleGetDTO>>> GetArticles()
         {
-            var originalArticles = await _context.Articles.ToListAsync();
-            var returnArticles = _mapper.Map<List<ArticleGetDTO>>(await _context.Articles.ToListAsync());
-
-            for (int i = 0; i < originalArticles.Count; i++)
-            {
-                returnArticles[i].UserEmail = originalArticles[i].UserEmail;
-                returnArticles[i].UserName = _context.Users
-                    .SingleOrDefault(u => u.Email == returnArticles[i].UserEmail)!.UserName;
-            }
-
-            return returnArticles;
+            return await _repo.GetArticles();
         }
 
         // GET: api/Articles/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Article>> GetArticle(int id)
         {
-            var article = await _context.Articles.FindAsync(id);
-
-            if (article == null)
-            {
-                return NotFound();
-            }
-
-            return article;
+            var article = await _repo.GetAsync(id);
+            return article == null ? NotFound(id) : Ok(article);
         }
 
         // PUT: api/Articles/5
@@ -66,23 +47,7 @@ namespace TutApp.Api.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(article).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ArticleExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _repo.UpdateAsync(article);
 
             return NoContent();
         }
@@ -93,33 +58,22 @@ namespace TutApp.Api.Controllers
         [Route("addNewArticle")]
         public async Task<ActionResult<ArticleGetDTO>> AddNewArticle(ArticleDTO articleDto)
         {
-            var article = _mapper.Map<Article>(articleDto); 
-            
-            _context.Articles.Add(article);
-            await _context.SaveChangesAsync();
-
-            return Ok(article);
+            var article = _mapper.Map<Article>(articleDto);
+            await _repo.AddAsync(article);
+            return CreatedAtAction("GetArticle", new { id = article.Id }, article);
         }
 
         // DELETE: api/Articles/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteArticle(int id)
         {
-            var article = await _context.Articles.FindAsync(id);
-            if (article == null)
+            if (await _repo.GetAsync(id) == null)
             {
-                return NotFound();
+                return BadRequest(id);
             }
 
-            _context.Articles.Remove(article);
-            await _context.SaveChangesAsync();
-
+            await _repo.DeleteAsync(id);
             return NoContent();
-        }
-
-        private bool ArticleExists(int id)
-        {
-            return _context.Articles.Any(e => e.Id == id);
         }
     }
 }
