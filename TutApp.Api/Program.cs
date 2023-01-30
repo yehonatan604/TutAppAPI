@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Tut.Model.SiteDbContext;
 using TutApp.Core.Configurations;
+using TutApp.Core.Contracts;
+using TutApp.Core.Repository;
 using TutApp.Data.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,13 +20,17 @@ builder.Services.AddDbContextFactory<SiteDbContext>(options =>
 });
 
 //Add AutoMapper
-
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 
+//Add OData
 builder.Services.AddControllers().AddOData(options =>
 {
     options.Select().Filter().OrderBy();
 });
+
+//Add Repository
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped<IImageRepository, ImageRepository>();
 
 // Add IdentityCore
 builder.Services.AddIdentityCore<User>()

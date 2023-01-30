@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using Microsoft.EntityFrameworkCore;
-using Tut.Model.SiteDbContext;
+using TutApp.Core.Contracts;
+using TutApp.Core.Repository;
 using TutApp.Data.Models;
 
 namespace TutApp.Api.Controllers
@@ -11,32 +11,25 @@ namespace TutApp.Api.Controllers
     [EnableQuery]
     public class ImagesController : ControllerBase
     {
-        private readonly SiteDbContext _context;
-
-        public ImagesController(SiteDbContext context)
+        private readonly IImageRepository _repo;
+        public ImagesController(IImageRepository repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
         // GET: api/Images
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Image>>> GetImages()
         {
-            return await _context.Images.ToListAsync();
+            return Ok(await _repo.GetAllAsync());
         }
 
         // GET: api/Images/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Image>> GetImage(int id)
         {
-            var image = await _context.Images.FindAsync(id);
-
-            if (image == null)
-            {
-                return NotFound();
-            }
-
-            return image;
+            var image = await _repo.GetAsync(id);
+            return image == null ? NotFound(id) : Ok(image);
         }
 
         // PUT: api/Images/5
@@ -49,23 +42,7 @@ namespace TutApp.Api.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(image).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ImageExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            await _repo.UpdateAsync(image);
 
             return NoContent();
         }
@@ -75,9 +52,7 @@ namespace TutApp.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Image>> PostImage(Image image)
         {
-            _context.Images.Add(image);
-            await _context.SaveChangesAsync();
-
+            await _repo.AddAsync(image);
             return CreatedAtAction("GetImage", new { id = image.Id }, image);
         }
 
@@ -85,21 +60,13 @@ namespace TutApp.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteImage(int id)
         {
-            var image = await _context.Images.FindAsync(id);
-            if (image == null)
+            if (await _repo.GetAsync(id) == null)
             {
-                return NotFound();
+                return BadRequest(id);
             }
 
-            _context.Images.Remove(image);
-            await _context.SaveChangesAsync();
-
+            await _repo.DeleteAsync(id);
             return NoContent();
-        }
-
-        private bool ImageExists(int id)
-        {
-            return _context.Images.Any(e => e.Id == id);
         }
     }
 }

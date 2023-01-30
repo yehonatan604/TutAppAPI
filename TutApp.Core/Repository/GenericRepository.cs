@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Tut.Model.SiteDbContext;
 using TutApp.Core.Contracts;
 
@@ -7,25 +6,25 @@ namespace TutApp.Core.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly SiteDbContext _db;
+        protected readonly SiteDbContext _db;
         public GenericRepository(IDbContextFactory<SiteDbContext> dbFactory)
         {
             _db = dbFactory.CreateDbContext();
         }
 
         //GET
-        public async Task<List<T>> GetAllAsync()
+        public virtual async Task<List<T>> GetAllAsync()
         {
             return await _db.Set<T>().ToListAsync();
         }
 
-        public async Task<T> GetAsync(int? id)
+        public virtual async Task<T> GetAsync(int? id)
         {
             return (id is not null ? await _db.Set<T>().FindAsync(id) : null)!;
         }
 
         // POST
-        public async Task<T> AddAsync(T entity)
+        public virtual async Task<T> AddAsync(T entity)
         {
             await _db.AddAsync(entity);
             await _db.SaveChangesAsync();
@@ -33,14 +32,14 @@ namespace TutApp.Core.Repository
         }
 
         // PUT
-        public async Task UpdateAsync(T entity)
+        public virtual async Task UpdateAsync(T entity)
         {
             _db.Update(entity);
             await _db.SaveChangesAsync();
         }
 
         // DELETE {Id}
-        public async Task DeleteAsync(int? id)
+        public virtual async Task DeleteAsync(int? id)
         {
             var entity = await GetAsync(id);
             _db.Set<T>().Remove(entity);
@@ -48,7 +47,7 @@ namespace TutApp.Core.Repository
         }
 
         // Assistant Methods
-        public async Task<bool> Exists(int? id)
+        public virtual async Task<bool> Exists(int? id)
         {
             return await GetAsync(id) != null;
         }
