@@ -10,13 +10,13 @@ using TutApp.Data.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 #region Add Services
-
 builder.Services.AddControllers();
 
 // Add DbContextFactory
+var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
 builder.Services.AddDbContextFactory<SiteDbContext>(options =>
 {
-    options.UseSqlServer("Server=DESKTOP-T74S10A;Database=TutAppDb;Trusted_Connection = True;TrustServerCertificate= True;");
+    options.UseSqlServer(connectionString);
 });
 
 //Add AutoMapper
