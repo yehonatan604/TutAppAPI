@@ -1,11 +1,12 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using Tut.Model.SiteDbContext;
 using TutApp.Core.Contracts;
 using TutApp.Core.DTOs;
 using TutApp.Data.Models;
@@ -13,32 +14,34 @@ using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegiste
 
 namespace TutApp.Core.Repository
 {
-    public class AuthRepository : IAuthRepository
+    public class AuthRepository : GenericRepository<User>, IAuthRepository
     {
         private readonly IMapper _mapper;
         private readonly UserManager<User> _manager;
         private readonly IConfiguration _config;
-        private User _user;
+        private User? _user;
 
         private const string _loginProvider = "TutAppApi";
         private const string _refreshToken = "RefreshToken";
 
         public AuthRepository(IMapper mapper,
              UserManager<User> userManager,
-             IConfiguration config)
+             IConfiguration config,
+             IDbContextFactory<SiteDbContext> dbContextFactory) : base(dbContextFactory) 
         {
             _mapper = mapper;
             _manager = userManager;
             _config = config;
+
         }
         public async Task<string> CreateRefreshToken()
         {
             await _manager.RemoveAuthenticationTokenAsync
-                (_user, _loginProvider, _refreshToken);
+                (_user!, _loginProvider, _refreshToken);
             var newRefreshToken = await _manager.GenerateUserTokenAsync
-                (_user, _loginProvider, _refreshToken);
+                (_user!, _loginProvider, _refreshToken);
             var result = await _manager.SetAuthenticationTokenAsync
-                (_user, _loginProvider, _refreshToken, newRefreshToken);
+                (_user!, _loginProvider, _refreshToken, newRefreshToken);
             return newRefreshToken;
         }
 
@@ -76,10 +79,29 @@ namespace TutApp.Core.Repository
             return result.Errors;
         }
 
-        public Task UpdateUser(UserUpdateDTO user)
+        public async Task<bool> UpdateUser(UserUpdateDTO user)
         {
-            throw new NotImplementedException();
+            _user = _user = await _manager.FindByEmailAsync(user.Email);
+
+            if (_user == null)
+            {
+                return false;
+            }
+
+            try
+            {
+                UpdateUserDetails(user);
+                _db.Entry(_user).State = EntityState.Modified;
+                await _db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
+            }
+
+            return false;
         }
+    
 
         public async Task<UserReturnDto?> VerifyRefreshToken(UserReturnDto request)
         {
@@ -138,5 +160,15 @@ namespace TutApp.Core.Repository
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
+    public void UpdateUserDetails(UserUpdateDTO user)
+    {
+        _user!.UserName = user.UserName;
+        _user.DOB = user.Dob;
+        _user.Email = string.IsNullOrEmpty(user.newEmail) ? user.Email : user.newEmail;
+        _user.HobbiesList = user.HobbiesList;
+        _user.FavCategoriesList = user.FavCategoriesList;
+        _user.AboutMe = user.AboutMe;
     }
+}
 }
