@@ -29,5 +29,6 @@ namespace TutApp.Core.Repository
 
             return returnArticles;
         }
+
     }
 }
