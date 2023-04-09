@@ -17,23 +17,48 @@ namespace TutApp.Core.Repository
     public class AuthRepository : GenericRepository<User>, IAuthRepository
     {
         private readonly IMapper _mapper;
+        private User? _user;
         private readonly UserManager<User> _manager;
         private readonly IConfiguration _config;
-        private User? _user;
 
-        private const string _loginProvider = "TutAppApi";
+        private const string _loginProvider = "TutApi";
         private const string _refreshToken = "RefreshToken";
 
-        public AuthRepository(IMapper mapper,
-             UserManager<User> userManager,
-             IConfiguration config,
-             IDbContextFactory<SiteDbContext> dbContextFactory) : base(dbContextFactory) 
+        public AuthRepository(
+            IMapper mapper,
+            IDbContextFactory<SiteDbContext> dbContextFactory,
+            UserManager<User> _manager,
+            IConfiguration config
+        ) : base(dbContextFactory)
         {
             _mapper = mapper;
-            _manager = userManager;
+            this._manager = _manager;
             _config = config;
-
         }
+
+        public async Task<UserReturnDto?> Login(UserLoginDTO loginDto)
+        {
+            //_logger.LogInformation($"Looking for user '{loginVM.Email}'");
+            _user = await _manager.FindByEmailAsync(loginDto.Email);
+            bool isValid = await _manager.CheckPasswordAsync(_user, loginDto.Password);
+
+            if (_user == null || !isValid)
+            {
+                //_logger.LogWarning($"user with email '{loginDto.Email}' was not found!!!");
+                return null;
+            }
+
+            var token = await GenerateToken();
+            //_logger.LogInformation($"Generated token: {token}\nfor user: {loginDto.Email}");
+
+            return new UserReturnDto
+            {
+                Token = token,
+                UserId = _user.Id,
+                RefreshToken = await CreateRefreshToken()
+            };
+        }
+
         public async Task<string> CreateRefreshToken()
         {
             await _manager.RemoveAuthenticationTokenAsync
@@ -45,43 +70,22 @@ namespace TutApp.Core.Repository
             return newRefreshToken;
         }
 
-        public async Task<UserReturnDto?> Login(UserLoginDTO userLogin)
-        {
-            _user = await _manager.FindByEmailAsync(userLogin.Email);
-            bool isValid = await _manager.CheckPasswordAsync(_user, userLogin.Password);
-
-            if (_user == null || !isValid)
-            {
-                return null;
-            }
-
-            var token = await GenerateToken();
-
-            return new UserReturnDto
-            {
-                Token = token,
-                UserId = _user.Id,
-                RefreshToken = await CreateRefreshToken()
-            };
-        }
-
         public async Task<IEnumerable<IdentityError>> Register(UserRegisterDTO userDTO)
         {
-            _user = _mapper.Map<User>(userDTO);
-            _user.UserName = userDTO.Email;
-            var result = await _manager.CreateAsync(_user, userDTO.Password);
+            var user = _mapper.Map<User>(userDTO);
+            var res = await _manager.CreateAsync(user, userDTO.Password);
 
-            if (result.Succeeded)
+            if (res.Succeeded)
             {
-                await _manager.AddToRoleAsync(_user, "User");
+                await _manager.AddToRoleAsync(user, "User");
             }
 
-            return result.Errors;
+            return res.Errors;
         }
 
         public async Task<bool> UpdateUser(UserUpdateDTO user)
         {
-            _user = _user = await _manager.FindByEmailAsync(user.Email);
+            _user = await _db.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
 
             if (_user == null)
             {
@@ -99,9 +103,35 @@ namespace TutApp.Core.Repository
                 throw;
             }
 
-            return false;
+            return true;
         }
-    
+
+        private async Task<string> GenerateToken()
+        {
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Keys:Key"]!));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            var roles = await _manager.GetRolesAsync(_user);
+            var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x)).ToList();
+            var userClaims = await _manager.GetClaimsAsync(_user);
+
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, _user.Email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(JwtRegisteredClaimNames.Email, _user.Email),
+            }.Union(userClaims).Union(roleClaims);
+
+            var token = new JwtSecurityToken(
+                issuer: _config["JwtSettings:Issuer"],
+                audience: _config["JwtSettings:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddDays(Convert.ToInt16(_config["JwtSettings:DurationInDays"])),
+                signingCredentials: credentials
+                );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
 
         public async Task<UserReturnDto?> VerifyRefreshToken(UserReturnDto request)
         {
@@ -134,41 +164,14 @@ namespace TutApp.Core.Repository
             return null;
         }
 
-        private async Task<string> GenerateToken()
+        public void UpdateUserDetails(UserUpdateDTO user)
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Keys:Key"]!));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            var roles = await _manager.GetRolesAsync(_user);
-            var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x)).ToList();
-            var userClaims = await _manager.GetClaimsAsync(_user);
-
-            var claims = new List<Claim>
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, _user.Email),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Email, _user.Email),
-            }.Union(userClaims).Union(roleClaims);
-
-            var token = new JwtSecurityToken(
-                issuer: _config["JwtSettings:Issuer"],
-                audience: _config["JwtSettings:Audience"],
-                claims: claims,
-                expires: DateTime.Now.AddDays(Convert.ToInt16(_config["JwtSettings:DurationInDays"])),
-                signingCredentials: credentials
-                );
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            _user!.UserName = user.UserName;
+            _user.DOB = user.Dob;
+            _user.Email = string.IsNullOrEmpty(user.newEmail) ? user.Email : user.newEmail;
+            _user.HobbiesList = user.HobbiesList;
+            _user.FavCategoriesList = user.FavCategoriesList;
+            _user.AboutMe = user.AboutMe;
         }
-
-    public void UpdateUserDetails(UserUpdateDTO user)
-    {
-        _user!.UserName = user.UserName;
-        _user.DOB = user.Dob;
-        _user.Email = string.IsNullOrEmpty(user.newEmail) ? user.Email : user.newEmail;
-        _user.HobbiesList = user.HobbiesList;
-        _user.FavCategoriesList = user.FavCategoriesList;
-        _user.AboutMe = user.AboutMe;
     }
-}
 }

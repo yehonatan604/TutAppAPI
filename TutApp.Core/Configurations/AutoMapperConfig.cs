@@ -13,6 +13,7 @@ namespace TutApp.Core.Configurations
 
             CreateMap<User, UserReturnDto>().ReverseMap();
             CreateMap<User, UserRegisterDTO>().ReverseMap();
+            CreateMap<UserRegisterDTO, User>().ReverseMap();
             CreateMap<User, UserUpdateDTO>().ReverseMap();
 
             CreateMap<Message, MessageGetDTO>().ReverseMap();

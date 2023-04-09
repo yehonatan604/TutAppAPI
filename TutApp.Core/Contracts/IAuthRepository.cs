@@ -8,8 +8,8 @@ namespace TutApp.Core.Contracts
     {
         Task<IEnumerable<IdentityError>> Register(UserRegisterDTO user);
         Task<UserReturnDto?> Login(UserLoginDTO user);
-        Task<bool> UpdateUser(UserUpdateDTO user);
         Task<string> CreateRefreshToken();
+        Task<bool> UpdateUser(UserUpdateDTO user);
         Task<UserReturnDto?> VerifyRefreshToken(UserReturnDto request);
     }
 }

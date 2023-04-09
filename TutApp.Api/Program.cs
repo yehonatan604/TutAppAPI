@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using Tut.Model.SiteDbContext;
 using TutApp.Core.Configurations;
 using TutApp.Core.Contracts;
@@ -12,34 +15,58 @@ var builder = WebApplication.CreateBuilder(args);
 #region Add Services
 builder.Services.AddControllers();
 
-// Add DbContextFactory
+// DbContextFactory
 var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
 builder.Services.AddDbContextFactory<SiteDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
 });
 
-//Add AutoMapper
+// AutoMapper
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 
-//Add OData
+// OData
 builder.Services.AddControllers().AddOData(options =>
 {
     options.Select().Filter().OrderBy();
 });
 
-//Add Repository
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+// Repository Pattern
+builder.Services.AddSingleton(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
+builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
-// Add IdentityCore
+// IdentityCore
 builder.Services.AddIdentityCore<User>()
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<SiteDbContext>();
+                .AddTokenProvider<DataProtectorTokenProvider<User>>("TutApi")
+                .AddEntityFrameworkStores<SiteDbContext>()
+                .AddDefaultTokenProviders();
 
-// Add Cors
+// JwtBearer
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; // "Bearer"
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; // "Bearer"
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuerSigningKey = true,
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero,
+        ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+        ValidAudience = builder.Configuration["JwtSettings:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey
+            (Encoding.UTF8.GetBytes(builder.Configuration["Keys:Key"]!))
+    };
+});
+
+// CORS
 builder.Services.AddCors(x => x.AddPolicy(
     "myPolicy", c => c.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin())
 );
@@ -54,6 +81,8 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 app.UseCors("myPolicy");
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

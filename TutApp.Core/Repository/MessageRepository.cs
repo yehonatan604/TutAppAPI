@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Tut.Model.SiteDbContext;
 using TutApp.Core.Contracts;
 using TutApp.Core.DTOs;

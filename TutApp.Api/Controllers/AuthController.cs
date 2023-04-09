@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Tut.Model.SiteDbContext;
+using TutApp.Core.Contracts;
 using TutApp.Core.DTOs;
 using TutApp.Data.Models;
 
@@ -13,12 +14,13 @@ namespace TutApp.Api.Controllers
     {
         private readonly SiteDbContext _context;
         private readonly IMapper _mapper;
-        private User? _user;
+        private readonly IAuthRepository _repo;
 
-        public AuthController(IDbContextFactory<SiteDbContext> dbContextFactory, IMapper mapper)
+        public AuthController(IDbContextFactory<SiteDbContext> dbContextFactory, IMapper mapper, IAuthRepository repo)
         {
             _context = dbContextFactory.CreateDbContext();
             _mapper = mapper;
+            _repo = repo;
         }
 
         // POST: api/Auth/register
@@ -27,16 +29,20 @@ namespace TutApp.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult<bool>> Register([FromBody] UserRegisterDTO user)
+        public async Task<ActionResult> Register([FromBody] UserRegisterDTO user)
         {
-            _context.Users.Add(_mapper.Map<User>(user));
-            _context.SaveChanges();
+            var errors = await _repo.Register(user);
 
-            _user = await _context.Users.SingleAsync(u => u.Email == user.Email);
-            _user.UserType = UserTypes.Reader;
-            _context.SaveChanges();
-
-            return Ok(true);
+            if (errors.Any())
+            {
+                /*foreach (var error in errors)
+                {
+                    ModelState.AddModelError(error.Code, error.Description);
+                }
+                throw new BadRequestException(nameof(Register), ModelState);*/
+                return BadRequest(errors);
+            }
+            return Ok();
         }
 
         // POST: api/Auth/login
@@ -47,18 +53,11 @@ namespace TutApp.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<UserReturnDto?>> Login([FromBody] UserLoginDTO user)
         {
-            _user = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
-
-            if (_user != null)
-            {
-                if (_user!.Password == user.Password)
-                {
-                    return Ok(_mapper.Map<UserReturnDto>(_user));
-                }
-                return BadRequest("Wrong Password");
-            }
-
-            return BadRequest("Email does not exists");
+            var authResponse = await _repo.Login(user);
+            return authResponse == null ?
+                   //throw new UnauthorizedException(nameof(Login), loginVM.Email) 
+                   Unauthorized(nameof(Login)) :
+                   Ok(authResponse);
         }
 
         //PUT: api/Auth/updateUser
@@ -69,25 +68,7 @@ namespace TutApp.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> UpdateUser([FromBody] UserUpdateDTO user)
         {
-            _user = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
-
-            if (_user == null)
-            {
-                return BadRequest();
-            }
-
-            try
-            {
-                UpdateUserDetails(user);
-                _context.Entry(_user).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }
-
-            return NoContent();
+            return await _repo.UpdateUser(user) ? NoContent() : BadRequest();
         }
 
         [HttpGet]
@@ -98,14 +79,27 @@ namespace TutApp.Api.Controllers
             return Ok(await _context.Users.AnyAsync(u => u.Email == email));
         }
 
-        public void UpdateUserDetails(UserUpdateDTO user)
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [Route("getUsers")]
+        public async Task<ActionResult<bool>> GetUsers()
         {
-            _user!.UserName = user.UserName;
-            _user.DOB = user.Dob;
-            _user.Email = string.IsNullOrEmpty(user.newEmail) ? user.Email : user.newEmail;
-            _user.HobbiesList = user.HobbiesList;
-            _user.FavCategoriesList = user.FavCategoriesList;
-            _user.AboutMe = user.AboutMe;
+            return Ok(await _context.Users.ToListAsync());
+        }
+
+        // POST: api/Auth/refreshtoken
+        [HttpPost]
+        [Route("refreshtoken")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> RefreshToken([FromBody] UserReturnDto request)
+        {
+            var authResponse = await _repo.VerifyRefreshToken(request);
+            return authResponse == null ?
+                   //throw new UnauthorizedException(nameof(RefreshToken), request.UserId!)
+                   Unauthorized(nameof(RefreshToken)) :
+                   Ok(authResponse);
         }
     }
 }

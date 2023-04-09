@@ -59,7 +59,7 @@ namespace TutApp.Api.Controllers
         public async Task<ActionResult<Message>> PostMessage(Message message)
         {
             await _repo.AddAsync(message);
-            return CreatedAtAction("GetCountry", new { id = message.Id }, message);
+            return CreatedAtAction("GetMessage", new { id = message.Id }, message);
         }
 
         // DELETE: api/Messages/5
