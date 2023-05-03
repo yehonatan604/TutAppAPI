@@ -13,7 +13,6 @@ using TutApp.Data.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 #region Add Services
-builder.Services.AddControllers();
 
 // DbContextFactory
 var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
@@ -45,6 +44,9 @@ builder.Services.AddIdentityCore<User>()
                 .AddEntityFrameworkStores<SiteDbContext>()
                 .AddDefaultTokenProviders();
 
+// Controllers
+builder.Services.AddControllers();
+
 // JwtBearer
 builder.Services.AddAuthentication(options =>
 {
@@ -68,11 +70,11 @@ builder.Services.AddAuthentication(options =>
 
 // CORS
 builder.Services.AddCors(x => x.AddPolicy(
-    "myPolicy", c => c.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin())
+    "myPolicy", c => c.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()
+    )
 );
 
 #endregion Add Services
-
 
 var app = builder.Build();
 

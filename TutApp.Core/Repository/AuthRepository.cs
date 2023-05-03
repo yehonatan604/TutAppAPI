@@ -36,7 +36,7 @@ namespace TutApp.Core.Repository
             _config = config;
         }
 
-        public async Task<UserReturnDto?> Login(UserLoginDTO loginDto)
+        public async Task<UserTokenDTO?> Login(UserLoginDTO loginDto)
         {
             //_logger.LogInformation($"Looking for user '{loginVM.Email}'");
             _user = await _manager.FindByEmailAsync(loginDto.Email);
@@ -47,16 +47,16 @@ namespace TutApp.Core.Repository
                 //_logger.LogWarning($"user with email '{loginDto.Email}' was not found!!!");
                 return null;
             }
-
             var token = await GenerateToken();
-            //_logger.LogInformation($"Generated token: {token}\nfor user: {loginDto.Email}");
-
-            return new UserReturnDto
+            UserTokenDTO userReturn = new()
             {
                 Token = token,
                 UserId = _user.Id,
                 RefreshToken = await CreateRefreshToken()
             };
+            //_logger.LogInformation($"Generated token: {token}\nfor user: {loginDto.Email}");
+
+            return userReturn;
         }
 
         public async Task<string> CreateRefreshToken()
@@ -133,7 +133,7 @@ namespace TutApp.Core.Repository
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        public async Task<UserReturnDto?> VerifyRefreshToken(UserReturnDto request)
+        public async Task<UserTokenDTO?> VerifyRefreshToken(UserTokenDTO request)
         {
             var jsonSecurityTokeHandler = new JwtSecurityTokenHandler();
             var tokenContent = jsonSecurityTokeHandler.ReadJwtToken(request.Token);
@@ -153,7 +153,7 @@ namespace TutApp.Core.Repository
             if (isValidRefreshToken)
             {
                 var token = await GenerateToken();
-                return new UserReturnDto
+                return new UserTokenDTO
                 {
                     Token = token,
                     UserId = _user.Id,
@@ -172,6 +172,11 @@ namespace TutApp.Core.Repository
             _user.HobbiesList = user.HobbiesList;
             _user.FavCategoriesList = user.FavCategoriesList;
             _user.AboutMe = user.AboutMe;
+        }
+
+        public async Task<UserReturnDto?> GetUser(string UserId)
+        {
+            return _mapper.Map<UserReturnDto>(await _db.Users.SingleOrDefaultAsync(u => u.Id == UserId));
         }
     }
 }

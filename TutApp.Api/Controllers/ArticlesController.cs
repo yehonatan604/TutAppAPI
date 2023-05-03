@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using TutApp.Core.Contracts;
@@ -34,12 +35,21 @@ namespace TutApp.Api.Controllers
         public async Task<ActionResult<Article>> GetArticle(int id)
         {
             var article = await _repo.GetAsync(id);
+            await _repo.AddViewToArticle(id);
             return article == null ? NotFound(id) : Ok(article);
+        }
+
+        // GET: api/Articles/AddStarsToArticle/5
+        [Route("addStarsToArticle/{id}/{stars}")]
+        public async Task<ActionResult<bool>> AddStarsToArticle(int id, int stars)
+        {
+            return await _repo.AddStarsToArticle(id, stars);
         }
 
         // PUT: api/Articles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "Creator, Admin")]
         public async Task<IActionResult> PutArticle(int id, Article article)
         {
             if (id != article.Id)
@@ -56,6 +66,7 @@ namespace TutApp.Api.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Route("addNewArticle")]
+        [Authorize(Roles = "Creator, Admin")]
         public async Task<ActionResult<ArticleGetDTO>> AddNewArticle(ArticleDTO articleDto)
         {
             var article = _mapper.Map<Article>(articleDto);
@@ -65,15 +76,16 @@ namespace TutApp.Api.Controllers
 
         // DELETE: api/Articles/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteArticle(int id)
+        [Authorize(Roles = "Creator, Admin")]
+        public async Task<bool> DeleteArticle(int id)
         {
             if (await _repo.GetAsync(id) == null)
             {
-                return BadRequest(id);
+                return false;
             }
 
             await _repo.DeleteAsync(id);
-            return NoContent();
+            return true;
         }
     }
 }

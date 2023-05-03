@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using Tut.Model.SiteDbContext;
 using TutApp.Core.Contracts;
 using TutApp.Core.DTOs;
@@ -13,6 +14,7 @@ namespace TutApp.Core.Repository
         public ArticleRepository(IDbContextFactory<SiteDbContext> dbFactory, IMapper mapper) : base(dbFactory)
         {
             _mapper = mapper;
+            
         }
 
         public async Task<List<ArticleGetDTO>> GetArticles()
@@ -30,5 +32,30 @@ namespace TutApp.Core.Repository
             return returnArticles;
         }
 
+        public async Task<bool> AddViewToArticle(int id)
+        {
+            
+            var article = await _db.Articles.SingleOrDefaultAsync(u => u.Id == id);
+            if (article != null) 
+            {
+                article.Views = article.Views+1;
+                _db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> AddStarsToArticle(int id, int stars)
+        {
+            var article = await _db.Articles.SingleOrDefaultAsync(u => u.Id == id);
+
+            if (article != null)
+            {
+                article.Stars = stars >= 5 ? 5 : stars; 
+                _db.SaveChanges();
+                return true;
+            }
+            return false;
+        }
     }
 }

@@ -35,6 +35,11 @@ namespace TutApp.Core.DTOs
         public string? HobbiesList { get; set; }
         public string? FavCategoriesList { get; set; }
         public string? AboutMe { get; set; }
+        
+    }
+
+    public class UserTokenDTO
+    {
         public string UserId { get; set; }
         public string Token { get; set; }
         public string RefreshToken { get; set; }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 using TutApp.Core.Contracts;
 using TutApp.Data.Models;
@@ -57,6 +58,7 @@ namespace TutApp.Api.Controllers
 
         // DELETE: api/Images/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteImage(int id)
         {
             if (await _repo.GetAsync(id) == null)
