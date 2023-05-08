@@ -3,11 +3,11 @@ The TutApp API is a RESTful API that provides users with access to a variety of 
 
 ## Table of Contents
 
-1. [Installation](#installation)
-2.  [usage](#usage)
-3. [Features](#features)
-4. [Code Features](#code-features)
-5. [Troubleshooting](#troubleshooting)
+[Installation](#installation) <br>
+[usage](#usage) <br>
+[Features](#features) <br>
+[Code Features](#code-features) <br>
+[Troubleshooting](#troubleshooting)
 
 ### Installation
 
