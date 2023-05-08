@@ -2,13 +2,14 @@
 The TutApp API is a RESTful API that provides users with access to a variety of tutorials on different topics. The API allows users to search for tutorials by keyword, category, and author, as well as view and download tutorials in various formats.
 
 ## Table of Contents
-### Installation
-### Usage
-### Features
-### Code Features
-### Troubleshooting
 
-## Installation
+1. [Installation](#installation)
+2.  [usage](#usage)
+3. [Features](#features)
+4. [Code Features](#code-features)
+5. [Troubleshooting](#troubleshooting)
+
+### Installation
 
 To install the TutApp API, follow these steps:
 
@@ -39,7 +40,7 @@ Update-Database
 
 - Run the project in Visual Studio, The API server should now be running on your local machine & you should see Swagger Api Documentation.
 
-## Usage
+### Usage
 The TutApp API provides the following endpoints:
 
 - GET v1/api/articles - Retrieves a list of tutorials based on the specified search criteria.
@@ -56,7 +57,7 @@ The TutApp API provides the following endpoints:
 
 - Authorization implemented in swagger
 
-## Features
+### Features
 
 - User Registration: - In this module user must register himself by filling some personal details.
 
@@ -70,7 +71,7 @@ The TutApp API provides the following endpoints:
 
 - Personal: User can edit personal details, Creator can edit/delete his articles aswell.
 
-## Code Features:
+### Code Features:
 
 - The program is divided into 3 projects implementing the N-Tiers Architecture.
 - Database is created with Entity Framework Code First.
@@ -88,5 +89,5 @@ The TutApp API provides the following endpoints:
 - Api Versioning for possiable future development.
 - Passwords are hashed.
 
-## Troubleshooting
+### Troubleshooting
 If you encounter any issues when using the TutApp API, please refer to the project's GitHub Issues page to see if a solution has already been proposed. If not, you can open a new issue to report the problem.
