@@ -135,14 +135,15 @@ namespace TutApp.Core.Repository
 
         public async Task<UserTokenDTO?> VerifyRefreshToken(UserTokenDTO request)
         {
+
             var jsonSecurityTokeHandler = new JwtSecurityTokenHandler();
             var tokenContent = jsonSecurityTokeHandler.ReadJwtToken(request.Token);
-            var userName = tokenContent.Claims.ToList()
+            var userEmail = tokenContent.Claims.ToList()
                 .FirstOrDefault(e => e.Type == JwtRegisteredClaimNames.Email)?.Value;
 
-            _user = await _manager.FindByNameAsync(userName);
+            _user = await _manager.FindByEmailAsync(userEmail);
 
-            if (_user == null || _user.Id != request.UserId)
+            if (_user == null)
             {
                 return null;
             }

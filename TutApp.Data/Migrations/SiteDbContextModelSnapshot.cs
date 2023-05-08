@@ -51,22 +51,22 @@ namespace TutApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "486dc9f4-c287-4677-8125-24d589f89972",
-                            ConcurrencyStamp = "f829a78d-53e4-412c-b57c-738951724e8c",
+                            Id = "c32f66ed-c960-4cb7-a468-90662e1fb37a",
+                            ConcurrencyStamp = "086f69c4-aaac-4466-a526-f5425fe63f0d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "ddc1ddb9-2495-40d6-b278-633bc6ca29c6",
-                            ConcurrencyStamp = "3cfb4820-5598-4a89-93cf-c004d2152fe2",
+                            ConcurrencyStamp = "92312111-981e-4dd1-808f-9f37e3feb602",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         },
                         new
                         {
                             Id = "4a8a52b2-8c3d-45d2-9fe5-ff01895c5c29",
-                            ConcurrencyStamp = "05006565-d257-406a-a3d2-6d535b09f33f",
+                            ConcurrencyStamp = "169a328e-dc27-4523-a2b9-d882ab345bb7",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -157,6 +157,28 @@ namespace TutApp.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "8e445865-a24d-4543-a6c6-9443d048cdb9",
+                            RoleId = "c32f66ed-c960-4cb7-a468-90662e1fb37a"
+                        },
+                        new
+                        {
+                            UserId = "afa4728b-351f-4e2c-a903-3c80e77848e7",
+                            RoleId = "ddc1ddb9-2495-40d6-b278-633bc6ca29c6"
+                        },
+                        new
+                        {
+                            UserId = "59f65e3a-706c-4056-a0bc-c4597e08599e",
+                            RoleId = "ddc1ddb9-2495-40d6-b278-633bc6ca29c6"
+                        },
+                        new
+                        {
+                            UserId = "41e09971-aa5d-44f2-8dd2-37ab94cb7708",
+                            RoleId = "ddc1ddb9-2495-40d6-b278-633bc6ca29c6"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -568,68 +590,6 @@ namespace TutApp.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Messages");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Content = "ברוכים הבאים לתות!\nשימוש מהנה באתר",
-                            Created = new DateTime(2023, 4, 4, 13, 48, 47, 417, DateTimeKind.Local).AddTicks(5069),
-                            ReciverEmail = "abed@email.com",
-                            SenderEmail = "admin@email.com",
-                            Status = 1,
-                            Title = "Welcome"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Content = "ברוכים הבאים לתות!\nשימוש מהנה באתר",
-                            Created = new DateTime(2023, 4, 4, 13, 48, 47, 417, DateTimeKind.Local).AddTicks(5077),
-                            ReciverEmail = "melon@email.com",
-                            SenderEmail = "admin@email.com",
-                            Status = 1,
-                            Title = "Welcome"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Content = "ברוכים הבאים לתות!\nשימוש מהנה באתר",
-                            Created = new DateTime(2023, 4, 4, 13, 48, 47, 417, DateTimeKind.Local).AddTicks(5079),
-                            ReciverEmail = "erik@email.com",
-                            SenderEmail = "admin@email.com",
-                            Status = 1,
-                            Title = "Welcome"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Content = "ברוכים הבאים לתות!\nשימוש מהנה באתר",
-                            Created = new DateTime(2023, 4, 4, 13, 48, 47, 417, DateTimeKind.Local).AddTicks(5081),
-                            ReciverEmail = "chan@email.com",
-                            SenderEmail = "admin@email.com",
-                            Status = 1,
-                            Title = "Welcome"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Content = "ברוכים הבאים לתות!\nשימוש מהנה באתר",
-                            Created = new DateTime(2023, 4, 4, 13, 48, 47, 417, DateTimeKind.Local).AddTicks(5083),
-                            ReciverEmail = "al@email.com",
-                            SenderEmail = "admin@email.com",
-                            Status = 1,
-                            Title = "Welcome"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Content = "ברוכים הבאים לתות!\nשימוש מהנה באתר",
-                            Created = new DateTime(2023, 4, 4, 13, 48, 47, 417, DateTimeKind.Local).AddTicks(5085),
-                            ReciverEmail = "donna@email.com",
-                            SenderEmail = "admin@email.com",
-                            Status = 1,
-                            Title = "Welcome"
-                        });
                 });
 
             modelBuilder.Entity("TutApp.Data.Models.User", b =>
@@ -721,16 +681,19 @@ namespace TutApp.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c32f66ed-c960-4cb7-a468-90662e1fb37a",
+                            Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ca8ef2cc-5735-4b76-beee-bc695477d407",
-                            DOB = new DateTime(2023, 4, 4, 13, 48, 47, 417, DateTimeKind.Local).AddTicks(4746),
+                            ConcurrencyStamp = "a4543ac5-892b-4530-ae03-4db5ac3e9871",
+                            DOB = new DateTime(2023, 5, 7, 18, 3, 43, 420, DateTimeKind.Local).AddTicks(8878),
                             Email = "admin@email.com",
-                            EmailConfirmed = false,
+                            EmailConfirmed = true,
                             LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@EMAIL.COM",
+                            NormalizedUserName = "ADMIN",
                             Password = "123#Abc123",
+                            PasswordHash = "AQAAAAEAACcQAAAAELs3uyeqhKbTN80lhbmK8vJK4bIp8UqNacVtxkCB9qYJnSChYRYD3wQnDZkRWEx+Wg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "45ee5dcf-61c3-4d75-9cb8-36e8b183ef65",
+                            SecurityStamp = "50bfffb7-fd6b-4d6f-aac4-9f0bf5f4196f",
                             TwoFactorEnabled = false,
                             UserName = "Admin",
                             UserStatus = 1,
@@ -738,33 +701,19 @@ namespace TutApp.Data.Migrations
                         },
                         new
                         {
-                            Id = "dc2b70cb-f433-4bc7-9492-34c3c41404b6",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "f077ee9c-044a-4394-9876-0eaddc6e42a5",
-                            DOB = new DateTime(2023, 4, 4, 13, 48, 47, 417, DateTimeKind.Local).AddTicks(4787),
-                            Email = "melon@email.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            Password = "123#Abc123",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "f135a561-fdb6-4e0d-ad92-fc5a39b077f9",
-                            TwoFactorEnabled = false,
-                            UserName = "Rickey Melon",
-                            UserStatus = 1,
-                            UserType = 1
-                        },
-                        new
-                        {
                             Id = "afa4728b-351f-4e2c-a903-3c80e77848e7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d5df8847-3e62-44bc-8790-cc690ad0265c",
-                            DOB = new DateTime(2023, 4, 4, 13, 48, 47, 417, DateTimeKind.Local).AddTicks(4795),
+                            ConcurrencyStamp = "a1fd6875-d625-4894-b4f7-4b164f416ead",
+                            DOB = new DateTime(2023, 5, 7, 18, 3, 43, 427, DateTimeKind.Local).AddTicks(7370),
                             Email = "abed@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
+                            NormalizedEmail = "ABED@EMAIL.COM",
+                            NormalizedUserName = "ABED ZUHIL",
                             Password = "123#Abc123",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFRTcjS6gUbNSIoMKNOObu1m2pf3TzXmBwmwfCP6O/zi2SVbdNEOcNEfd/DoBCYCfg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ffdfeb3c-84ea-4e72-aa0a-f663c2e59da3",
+                            SecurityStamp = "e7acb15b-b9ce-4b18-93bd-9458106af30c",
                             TwoFactorEnabled = false,
                             UserName = "Abed Zuhil",
                             UserStatus = 1,
@@ -774,14 +723,17 @@ namespace TutApp.Data.Migrations
                         {
                             Id = "59f65e3a-706c-4056-a0bc-c4597e08599e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3e2a55ca-c7e6-4ef9-9a3a-38eb32fad9be",
-                            DOB = new DateTime(2023, 4, 4, 13, 48, 47, 417, DateTimeKind.Local).AddTicks(4806),
+                            ConcurrencyStamp = "eb2db691-8781-4d43-b3b9-22bbf0287c74",
+                            DOB = new DateTime(2023, 5, 7, 18, 3, 43, 434, DateTimeKind.Local).AddTicks(4252),
                             Email = "erik@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
+                            NormalizedEmail = "ERIK@EMAIL.COM",
+                            NormalizedUserName = "ERIK LEMON",
                             Password = "123#Abc123",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJ/BsrwJsxjkumrHWLJ6gihXYdjnXyIgU4Ny42KXMquuI1eRz9diMiAFyKFSCxrr2g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "31f3627f-1790-4577-87e0-c690985b651e",
+                            SecurityStamp = "60b544eb-8602-4331-9ff4-f2ae01970946",
                             TwoFactorEnabled = false,
                             UserName = "Erik Lemon",
                             UserStatus = 1,
@@ -789,54 +741,23 @@ namespace TutApp.Data.Migrations
                         },
                         new
                         {
-                            Id = "ec346d77-93e6-4e7b-bff7-5e8b21acbce0",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "b1b4a27a-cec7-4740-8a73-99367f519b73",
-                            DOB = new DateTime(2023, 4, 4, 13, 48, 47, 417, DateTimeKind.Local).AddTicks(4813),
-                            Email = "chan@email.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            Password = "123#Abc123",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "5a73d3dd-3d52-4721-a131-1faa23c47289",
-                            TwoFactorEnabled = false,
-                            UserName = "Chan Don Ma",
-                            UserStatus = 1,
-                            UserType = 1
-                        },
-                        new
-                        {
                             Id = "41e09971-aa5d-44f2-8dd2-37ab94cb7708",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "320e5515-495f-4c47-bdbb-3772e30f3ed5",
-                            DOB = new DateTime(2023, 4, 4, 13, 48, 47, 417, DateTimeKind.Local).AddTicks(4823),
+                            ConcurrencyStamp = "954ce12d-f7f5-4d4c-bcad-11391338c97d",
+                            DOB = new DateTime(2023, 5, 7, 18, 3, 43, 441, DateTimeKind.Local).AddTicks(4305),
                             Email = "al@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
+                            NormalizedEmail = "AL@EMAIL.COM",
+                            NormalizedUserName = "AL VISS",
                             Password = "123#Abc123",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPq8i2KyZ3O27RYCMTvcEZXyhDJhlmTP80uPfRJj6VrW4OCFkEOzhuDU0Xo9Te51GQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "56e69533-782d-4047-8248-7463f4ef340e",
+                            SecurityStamp = "d1668b87-59fd-42cf-bc4d-44b3e354d5a4",
                             TwoFactorEnabled = false,
                             UserName = "Al Viss",
                             UserStatus = 1,
                             UserType = 2
-                        },
-                        new
-                        {
-                            Id = "10a4159a-172c-467c-9c97-1a21115e3743",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "ab44c147-e81c-4b51-be1d-769ece233641",
-                            DOB = new DateTime(2023, 4, 4, 13, 48, 47, 417, DateTimeKind.Local).AddTicks(4830),
-                            Email = "donna@email.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            Password = "123#Abc123",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "3be07e27-f0ab-4b97-b7a4-0a5e352e22e5",
-                            TwoFactorEnabled = false,
-                            UserName = "Donna Eyzer",
-                            UserStatus = 1,
-                            UserType = 1
                         });
                 });
 

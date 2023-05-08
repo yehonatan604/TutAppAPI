@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
+using System.Diagnostics;
 using TutApp.Core.Contracts;
 using TutApp.Core.DTOs;
 using TutApp.Data.Models;
@@ -48,18 +49,16 @@ namespace TutApp.Api.Controllers
 
         // PUT: api/Articles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "Creator, Admin")]
-        public async Task<IActionResult> PutArticle(int id, Article article)
+        public async Task<IActionResult> PutArticle(ArticlePutDTO articleDto)
         {
-            if (id != article.Id)
+            if(!await _repo.UpdateAsync(articleDto))
             {
                 return BadRequest();
             }
 
-            await _repo.UpdateAsync(article);
-
-            return NoContent();
+            return Ok(true);
         }
 
         // POST: api/Articles

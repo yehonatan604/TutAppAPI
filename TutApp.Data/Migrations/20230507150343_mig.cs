@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TutApp.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class mig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,8 +32,6 @@ namespace TutApp.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: false),
                     DOB = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserType = table.Column<int>(type: "int", nullable: false),
@@ -41,7 +39,9 @@ namespace TutApp.Data.Migrations
                     HobbiesList = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FavCategoriesList = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AboutMe = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedEmail = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     EmailConfirmed = table.Column<bool>(type: "bit", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -71,6 +71,24 @@ namespace TutApp.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Images", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SenderEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ReciverEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -180,34 +198,6 @@ namespace TutApp.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Messages",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SenderId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    ReciverId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Content = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Messages", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Messages_AspNetUsers_ReciverId",
-                        column: x => x.ReciverId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Messages_AspNetUsers_SenderId",
-                        column: x => x.SenderId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Articles",
                 columns: table => new
                 {
@@ -261,9 +251,9 @@ namespace TutApp.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "0a5cb87c-b7c2-4d61-a1a9-b11e46f33f0d", "782385d4-cb92-4204-8e59-ac97957633c8", "Creator", "CREATOR" },
-                    { "83843b3a-3e36-4623-a866-38ee0aa88771", "9bc2bed4-6316-46cc-8cb2-b5c33dd0d669", "Admin", "ADMIN" },
-                    { "e502c544-9d48-41b5-800b-e1815c6e3cd4", "9993dd5d-9275-41bf-adf5-3c67bb44ac1d", "User", "USER" }
+                    { "4a8a52b2-8c3d-45d2-9fe5-ff01895c5c29", "169a328e-dc27-4523-a2b9-d882ab345bb7", "User", "USER" },
+                    { "c32f66ed-c960-4cb7-a468-90662e1fb37a", "086f69c4-aaac-4466-a526-f5425fe63f0d", "Admin", "ADMIN" },
+                    { "ddc1ddb9-2495-40d6-b278-633bc6ca29c6", "92312111-981e-4dd1-808f-9f37e3feb602", "Creator", "CREATOR" }
                 });
 
             migrationBuilder.InsertData(
@@ -271,13 +261,10 @@ namespace TutApp.Data.Migrations
                 columns: new[] { "Id", "AboutMe", "AccessFailedCount", "ConcurrencyStamp", "DOB", "Email", "EmailConfirmed", "FavCategoriesList", "HobbiesList", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "Password", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName", "UserStatus", "UserType" },
                 values: new object[,]
                 {
-                    { "119551e4-adcd-4cee-8b89-7a78417a96ad", null, 0, "1cfdd32e-0364-45c7-807d-fba9ebe53fcc", new DateTime(2023, 1, 20, 19, 31, 24, 865, DateTimeKind.Local).AddTicks(1991), "chan@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "f2e5eb5d-3cff-423b-8f14-d895b32c44a8", false, "Chan Don Ma", 1, 1 },
-                    { "351dd825-4fd4-4353-ab00-1136e54b05c0", null, 0, "665a09c8-351c-407e-a264-0c0a0e2ce3d1", new DateTime(2023, 1, 20, 19, 31, 24, 865, DateTimeKind.Local).AddTicks(2009), "donna@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "9b3f8bdf-0ddc-45a9-a75a-e740ef85a5bc", false, "Donna Eyzer", 1, 1 },
-                    { "79127fde-874b-4de6-9889-3bca6a200495", null, 0, "a87e427f-7a58-4141-9987-45edc8eb9bf6", new DateTime(2023, 1, 20, 19, 31, 24, 865, DateTimeKind.Local).AddTicks(1963), "melon@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "24c9da65-a6fb-4946-9acc-1f0d52b3a13a", false, "Rickey Melon", 1, 1 },
-                    { "a5890a87-fb43-4e05-8c7e-4c2a6d36bfc2", null, 0, "d9271532-3ae1-4246-a46a-8af033289e11", new DateTime(2023, 1, 20, 19, 31, 24, 865, DateTimeKind.Local).AddTicks(1982), "erik@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "0e8db7d6-33fc-4809-9a59-6a5f235cd590", false, "Erik Lemon", 1, 2 },
-                    { "c7ef1b9a-446f-4ca8-a8d7-f3a2a6ac22ee", null, 0, "77ab3d58-72ba-405a-959e-3c1fa66932cf", new DateTime(2023, 1, 20, 19, 31, 24, 865, DateTimeKind.Local).AddTicks(1999), "al@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "885bbf76-1248-4483-9b1a-bc5b36b6587a", false, "Al Viss", 1, 2 },
-                    { "c8fa182d-6112-4a35-99b1-23abc4c22c18", null, 0, "78290a1a-6aea-49d4-bede-27acc39db748", new DateTime(2023, 1, 20, 19, 31, 24, 865, DateTimeKind.Local).AddTicks(1922), "admin@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "d06624de-78be-4b46-b686-c32e5afc784a", false, "Admin", 1, 3 },
-                    { "fcd8c306-359d-4efd-a320-9fe04d2d33b8", null, 0, "491a2cb7-8132-43b0-9da7-f7a1c897dd18", new DateTime(2023, 1, 20, 19, 31, 24, 865, DateTimeKind.Local).AddTicks(1972), "abed@email.com", false, null, null, false, null, null, null, "123#Abc123", null, null, false, "d723cadb-b37f-4005-9ab1-358a54cd7ad5", false, "Abed Zuhil", 1, 2 }
+                    { "41e09971-aa5d-44f2-8dd2-37ab94cb7708", null, 0, "954ce12d-f7f5-4d4c-bcad-11391338c97d", new DateTime(2023, 5, 7, 18, 3, 43, 441, DateTimeKind.Local).AddTicks(4305), "al@email.com", false, null, null, false, null, "AL@EMAIL.COM", "AL VISS", "123#Abc123", "AQAAAAEAACcQAAAAEPq8i2KyZ3O27RYCMTvcEZXyhDJhlmTP80uPfRJj6VrW4OCFkEOzhuDU0Xo9Te51GQ==", null, false, "d1668b87-59fd-42cf-bc4d-44b3e354d5a4", false, "Al Viss", 1, 2 },
+                    { "59f65e3a-706c-4056-a0bc-c4597e08599e", null, 0, "eb2db691-8781-4d43-b3b9-22bbf0287c74", new DateTime(2023, 5, 7, 18, 3, 43, 434, DateTimeKind.Local).AddTicks(4252), "erik@email.com", false, null, null, false, null, "ERIK@EMAIL.COM", "ERIK LEMON", "123#Abc123", "AQAAAAEAACcQAAAAEJ/BsrwJsxjkumrHWLJ6gihXYdjnXyIgU4Ny42KXMquuI1eRz9diMiAFyKFSCxrr2g==", null, false, "60b544eb-8602-4331-9ff4-f2ae01970946", false, "Erik Lemon", 1, 2 },
+                    { "8e445865-a24d-4543-a6c6-9443d048cdb9", null, 0, "a4543ac5-892b-4530-ae03-4db5ac3e9871", new DateTime(2023, 5, 7, 18, 3, 43, 420, DateTimeKind.Local).AddTicks(8878), "admin@email.com", true, null, null, false, null, "ADMIN@EMAIL.COM", "ADMIN", "123#Abc123", "AQAAAAEAACcQAAAAELs3uyeqhKbTN80lhbmK8vJK4bIp8UqNacVtxkCB9qYJnSChYRYD3wQnDZkRWEx+Wg==", null, false, "50bfffb7-fd6b-4d6f-aac4-9f0bf5f4196f", false, "Admin", 1, 3 },
+                    { "afa4728b-351f-4e2c-a903-3c80e77848e7", null, 0, "a1fd6875-d625-4894-b4f7-4b164f416ead", new DateTime(2023, 5, 7, 18, 3, 43, 427, DateTimeKind.Local).AddTicks(7370), "abed@email.com", false, null, null, false, null, "ABED@EMAIL.COM", "ABED ZUHIL", "123#Abc123", "AQAAAAEAACcQAAAAEFRTcjS6gUbNSIoMKNOObu1m2pf3TzXmBwmwfCP6O/zi2SVbdNEOcNEfd/DoBCYCfg==", null, false, "e7acb15b-b9ce-4b18-93bd-9458106af30c", false, "Abed Zuhil", 1, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -319,6 +306,17 @@ namespace TutApp.Data.Migrations
                     { 14, "*", new DateTime(2021, 12, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), 14, 4, "המדריך המלא ל-Gimp", "abed@email.com", 25643, 3 },
                     { 15, "*", new DateTime(2021, 5, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), 13, 5, "המדריך המלא ל-PhotoShop", "erik@email.com", 5675656, 3 },
                     { 16, "*", new DateTime(2020, 12, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), 14, 0, "איך ליצור תמונות מונפשות?", "al@email.com", 22643, 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "RoleId", "UserId" },
+                values: new object[,]
+                {
+                    { "ddc1ddb9-2495-40d6-b278-633bc6ca29c6", "41e09971-aa5d-44f2-8dd2-37ab94cb7708" },
+                    { "ddc1ddb9-2495-40d6-b278-633bc6ca29c6", "59f65e3a-706c-4056-a0bc-c4597e08599e" },
+                    { "c32f66ed-c960-4cb7-a468-90662e1fb37a", "8e445865-a24d-4543-a6c6-9443d048cdb9" },
+                    { "ddc1ddb9-2495-40d6-b278-633bc6ca29c6", "afa4728b-351f-4e2c-a903-3c80e77848e7" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -369,16 +367,6 @@ namespace TutApp.Data.Migrations
                 name: "IX_Comments_ArticleId",
                 table: "Comments",
                 column: "ArticleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Messages_ReciverId",
-                table: "Messages",
-                column: "ReciverId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Messages_SenderId",
-                table: "Messages",
-                column: "SenderId");
         }
 
         /// <inheritdoc />
@@ -409,10 +397,10 @@ namespace TutApp.Data.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Articles");
+                name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Articles");
 
             migrationBuilder.DropTable(
                 name: "Images");

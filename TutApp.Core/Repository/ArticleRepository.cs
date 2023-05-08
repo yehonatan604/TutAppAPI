@@ -10,11 +10,28 @@ namespace TutApp.Core.Repository
 {
     public class ArticleRepository : GenericRepository<Article>, IArticleRepository
     {
-        IMapper _mapper;
+        private readonly IMapper _mapper;
         public ArticleRepository(IDbContextFactory<SiteDbContext> dbFactory, IMapper mapper) : base(dbFactory)
         {
             _mapper = mapper;
             
+        }
+
+        public async Task<bool> UpdateAsync(ArticlePutDTO entity)
+        {
+            Article? article = await _db.Articles.SingleOrDefaultAsync(article => article.Id == entity.Id);
+            
+            if (article == null)
+            {
+                return false;
+            }
+
+            article.Content = entity.Content;
+            article.category = entity.Category;
+            article.ImageId = entity.ImageId;
+            
+            await base.UpdateAsync(article);
+            return true;
         }
 
         public async Task<List<ArticleGetDTO>> GetArticles()
