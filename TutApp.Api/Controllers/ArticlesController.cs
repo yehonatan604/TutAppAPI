@@ -9,7 +9,8 @@ using TutApp.Data.Models;
 
 namespace TutApp.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("v{version:apiVersion}/api/[controller]")]
+    [ApiVersion("1.0")]
     [ApiController]
     [EnableQuery]
 
@@ -41,6 +42,7 @@ namespace TutApp.Api.Controllers
         }
 
         // GET: api/Articles/AddStarsToArticle/5
+        [HttpGet]
         [Route("addStarsToArticle/{id}/{stars}")]
         public async Task<ActionResult<bool>> AddStarsToArticle(int id, int stars)
         {

@@ -4,17 +4,17 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:32839",
-      "sslPort": 44345
+      "applicationUrl": "http://localhost:36185",
+      "sslPort": 44353
     }
   },
   "profiles": {
-    "TutApp.Api": {
+    "HotelListing.Api": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "launchUrl": "api/articles",
-      "applicationUrl": "https://localhost:7012;http://localhost:5003",
+      "launchUrl": "swagger",
+      "applicationUrl": "https://localhost:7163;http://localhost:5163",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -22,7 +22,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/articles",
+      "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

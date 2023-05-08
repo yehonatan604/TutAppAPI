@@ -9,7 +9,8 @@ using TutApp.Core.Exceptions;
 
 namespace TutApp.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("v{version:apiVersion}/api/[controller]")]
+    [ApiVersion("1.0")]
     [ApiController]
     public class AuthController : ControllerBase
     {

@@ -6,7 +6,8 @@ using TutApp.Data.Models;
 
 namespace TutApp.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("v{version:apiVersion}/api/[controller]")]
+    [ApiVersion("1.0")]
     [ApiController]
     [EnableQuery]
     public class ImagesController : ControllerBase
