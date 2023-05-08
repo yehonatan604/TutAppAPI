@@ -9,10 +9,15 @@ namespace TutApp.Data.SiteContext
     {
         public SiteDbContext CreateDbContext(string[] args)
         {
-            
+
+
+            IConfiguration config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .Build();
 
             DbContextOptionsBuilder<SiteDbContext> optionsBuilder = new();
-            var conn = "Server=DESKTOP-T74S10A;Database=TutAppDb;Trusted_Connection = True;TrustServerCertificate= True;";
+            var conn = config.GetConnectionString("ConnectionString");
             optionsBuilder.UseSqlServer(conn);
 
             return new SiteDbContext(optionsBuilder.Options);

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
-using System.Diagnostics;
 using TutApp.Core.Contracts;
 using TutApp.Core.DTOs;
 using TutApp.Data.Models;
