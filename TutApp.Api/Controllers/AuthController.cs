@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Tut.Model.SiteDbContext;
 using TutApp.Core.Contracts;
 using TutApp.Core.DTOs;
+using TutApp.Core.Exceptions;
 
 namespace TutApp.Api.Controllers
 {
@@ -35,12 +36,11 @@ namespace TutApp.Api.Controllers
 
             if (errors.Any())
             {
-                /*foreach (var error in errors)
+                foreach (var error in errors)
                 {
                     ModelState.AddModelError(error.Code, error.Description);
                 }
-                throw new BadRequestException(nameof(Register), ModelState);*/
-                return BadRequest(errors);
+                throw new BadRequestException(nameof(Register), ModelState);
             }
             return Ok();
         }
@@ -55,9 +55,8 @@ namespace TutApp.Api.Controllers
         {
             var authResponse = await _repo.Login(user);
             return authResponse == null ?
-                   //throw new UnauthorizedException(nameof(Login), loginVM.Email) 
-                   Unauthorized(nameof(Login)) :
-                   Ok(authResponse);
+                throw new UnauthorizedException(nameof(Login), user.Email) :
+                    Ok(authResponse);
         }
 
         //GET: api/Auth/checkEmailExist
@@ -92,9 +91,8 @@ namespace TutApp.Api.Controllers
         {
             var authResponse = await _repo.VerifyRefreshToken(request);
             return authResponse == null ?
-                   //throw new UnauthorizedException(nameof(RefreshToken), request.UserId!)
-                   Unauthorized(nameof(RefreshToken)) :
-                   Ok(authResponse);
+                throw new UnauthorizedException(nameof(RefreshToken), request.UserId!) :
+                    Ok(authResponse);
         }
 
         // GET: api/Auth/getUsers

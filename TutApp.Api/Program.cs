@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Tut.Model.SiteDbContext;
+using TutApp.Api.Controllers;
 using TutApp.Core.Configurations;
 using TutApp.Core.Contracts;
 using TutApp.Core.Repository;
@@ -79,6 +80,8 @@ builder.Services.AddCors(x => x.AddPolicy(
 var app = builder.Build();
 
 #region HTTP Request Pipeline
+
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
