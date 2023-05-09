@@ -19,30 +19,23 @@ To install the TutApp API, follow these steps:
 git clone https://github.com/yehonatan604/TutApp.git
 ```
 - Open the solution file TutApp.sln in Visual Studio.
-
 - Build the solution to restore NuGet packages and compile the project.
-
 - Create a new Microsoft SQL Server database to store the application data.
-
 - Open the file appsettings.json located in the TutApp project folder and modify the following connection string with your own Microsoft SQL Server database connection string:
-
 ```bash
 "ConnectionStrings": {
   "TutAppDbConnection": "Server=<your-server-name>;Database=<your-database-name>;Trusted_Connection=True;MultipleActiveResultSets=true"
 }
 ```
-
 - Open the Package Manager Console in Visual Studio, select the TutApp.Data project, and run the following command to create the database schema:
-
 ```bash
 Update-Database
 ```
-
 - Run the project in Visual Studio, The API server should now be running on your local machine & you should see Swagger Api Documentation.
 
 ### Usage
 
-- add version (v1) at the start of each route : https://tutappapi-yehonatan.azurewebsites.net/v1/api/articles 
+- To run without installation, the site is hosted on azure: https://tutappapi-yehonatan.azurewebsites.net/v1/api/articles, add version (v1) at the start of each route.
 - To use the API, you can send HTTP requests to these endpoints using a tool such as Postman or cURL or use TutApp frontend app.
 - Api Documentation in Swagger: https://tutappapi-yehonatan.azurewebsites.net/swagger/index.html
 - Authorization implemented in swagger, log in & then copy the token from the response, click authorize & paste the token.
