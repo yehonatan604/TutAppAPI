@@ -9,10 +9,10 @@ namespace TutApp.Data.SiteContext
     {
         public SiteDbContext CreateDbContext(string[] args)
         {
-
-
+            string directory = Directory.GetParent(Environment.CurrentDirectory)!.ToString();
+            
             IConfiguration config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(directory + @"/TutApp.Api/")
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 
