@@ -41,34 +41,19 @@ Update-Database
 - Run the project in Visual Studio, The API server should now be running on your local machine & you should see Swagger Api Documentation.
 
 ### Usage
-The TutApp API provides the following endpoints:
 
-- GET v1/api/articles - Retrieves a list of tutorials based on the specified search criteria.
-
-- GET v1/api/articles/{id} - Retrieves a tutorial with the specified ID.
-
-- POST v1/api/articles - Creates a new tutorial (Creator authorization level only).
-
-- PUT v1/api/articles/{id} - Updates an existing tutorial with the specified ID (Creator authorization level only).
-
-- DELETE v1/api/articles/{id} - Deletes a tutorial with the specified ID (Creator/Admin authorization level only).
-
-- To use the API, you can send HTTP requests to these endpoints using a tool such as Postman or cURL or Swagger or use TutApp frontend app.
-
-- Authorization implemented in swagger
+- add version (v1) at the start of each route : https://tutappapi-yehonatan.azurewebsites.net/v1/api/articles 
+- To use the API, you can send HTTP requests to these endpoints using a tool such as Postman or cURL or use TutApp frontend app.
+- Api Documentation in Swagger: https://tutappapi-yehonatan.azurewebsites.net/swagger/index.html
+- Authorization implemented in swagger, log in & then copy the token from the response, click authorize & paste the token.
 
 ### Features
 
 - User Registration: - In this module user must register himself by filling some personal details.
-
 - User Login: After registration user will enter Email and password for logging in order to get access to the system.
-
 - Search in Articles: User can search/sort articles.
-
 - Create articles: Creators can create new articles.
-
 - Massages: User can get & send messages to the admin.
-
 - Personal: User can edit personal details, Creator can edit/delete his articles aswell.
 
 ### Code Features:
