@@ -2,13 +2,14 @@
 The TutApp API is a RESTful API that provides users with access to a variety of tutorials on different topics. The API allows users to search for tutorials by keyword, category, and author, as well as view and download tutorials in various formats.
 
 ## Table of Contents
-### Installation
-### Usage
-### Features
-### Code Features
-### Troubleshooting
 
-## Installation
+[Installation](#installation) <br>
+[usage](#usage) <br>
+[Features](#features) <br>
+[Code Features](#code-features) <br>
+[Troubleshooting](#troubleshooting)
+
+### Installation
 
 To install the TutApp API, follow these steps:
 
@@ -31,38 +32,32 @@ git clone https://github.com/yehonatan604/TutApp.git
 }
 ```
 
-- Open the file DbContextFactory.cs located in the TutApp.Data/SiteContext folder and modify the following connection string with your own Microsoft SQL Server database connection string:
-
-```bash
-"ConnectionStrings": {
-  "TutAppDbConnection": "Server=<your-server-name>;Database=<your-database-name>;Trusted_Connection=True;MultipleActiveResultSets=true"
-}
-```
-
 - Open the Package Manager Console in Visual Studio, select the TutApp.Data project, and run the following command to create the database schema:
 
 ```bash
 Update-Database
 ```
 
-- Run the project in Visual Studio, The API server should now be running on your local machine.
+- Run the project in Visual Studio, The API server should now be running on your local machine & you should see Swagger Api Documentation.
 
-## Usage
+### Usage
 The TutApp API provides the following endpoints:
 
-- GET /api/articles - Retrieves a list of tutorials based on the specified search criteria.
+- GET v1/api/articles - Retrieves a list of tutorials based on the specified search criteria.
 
-- GET /api/articles/{id} - Retrieves a tutorial with the specified ID.
+- GET v1/api/articles/{id} - Retrieves a tutorial with the specified ID.
 
-- POST /api/articles - Creates a new tutorial.
+- POST v1/api/articles - Creates a new tutorial (Creator authorization level only).
 
-- PUT /api/articles/{id} - Updates an existing tutorial with the specified ID.
+- PUT v1/api/articles/{id} - Updates an existing tutorial with the specified ID (Creator authorization level only).
 
-- DELETE /api/articles/{id} - Deletes a tutorial with the specified ID.
+- DELETE v1/api/articles/{id} - Deletes a tutorial with the specified ID (Creator/Admin authorization level only).
 
-- To use the API, you can send HTTP requests to these endpoints using a tool such as Postman or cURL or use TutApp frontend app.
+- To use the API, you can send HTTP requests to these endpoints using a tool such as Postman or cURL or Swagger or use TutApp frontend app.
 
-## Features
+- Authorization implemented in swagger
+
+### Features
 
 - User Registration: - In this module user must register himself by filling some personal details.
 
@@ -74,23 +69,25 @@ The TutApp API provides the following endpoints:
 
 - Massages: User can get & send messages to the admin.
 
-- Personal: User can edit details, Creator can edit/delete his articles.
+- Personal: User can edit personal details, Creator can edit/delete his articles aswell.
 
-## Code Features:
+### Code Features:
 
-- The program is divided into 3 projects for implementing the N-Tiers Architecture.
-- Database is created with Entity Framework Core.
+- The program is divided into 3 projects implementing the N-Tiers Architecture.
+- Database is created with Entity Framework Code First.
 - Data is seeded on installation.
 - queries are written in LINQ.
-- The Db connector in the controller is Singleton, accessible via Dependency Injection only.
-- Usage of Repository Pattern.
+- The Db connector the generic repository is Singleton.
+- Usage of Repository Pattern & implementation of dependency injection.
 - Usage of AutoMapper & DTO's.
-- Usage of OData queries for ordering/sorting.
-- Global Exception Handling for Auth Controller.
+- Usage of OData queries for filtering/ordering/sorting.
+- Global Exception Handling custom Middleware for Auth Controller with custom exceptions.
 - JWT Authentication.
-- 3 different user roles: ["User", "Creator", "Admin"].
+- Authorization: 3 different user roles - ["User", "Creator", "Admin"].
 - Identity Core usage.  
+- Caching: responses are saved in cache for 10 seconds.
+- Api Versioning for possiable future development.
 - Passwords are hashed.
 
-## Troubleshooting
+### Troubleshooting
 If you encounter any issues when using the TutApp API, please refer to the project's GitHub Issues page to see if a solution has already been proposed. If not, you can open a new issue to report the problem.
