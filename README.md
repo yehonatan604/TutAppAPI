@@ -40,11 +40,15 @@ Update-Database
 - Api Documentation in Swagger: https://tutappapi-yehonatan.azurewebsites.net/swagger/index.html
 - Authorization implemented in swagger, register, login & then copy the token from the response:
 
-<a href="https://ibb.co/yVnPBGc"><img src="https://i.ibb.co/Fnb3qNL/response.png" alt="response" border="0"></a>
+<p align="center">
+  <a href="https://ibb.co/yVnPBGc"><img src="https://i.ibb.co/Fnb3qNL/response.png" alt="response" border="0"></a>
+</p>
 
 - click authorize & paste the token:
 
-<a href="https://ibb.co/TmWrh8M"><img src="https://i.ibb.co/5BK2c8h/auth.png" alt="auth" border="0"></a>
+<p align="center">
+  <a href="https://ibb.co/TmWrh8M"><img src="https://i.ibb.co/5BK2c8h/auth.png" alt="auth" border="0"></a>
+</p>
 
 - now you are authorized to access routes that was protected (according to your role's authorization level)
 
