@@ -36,9 +36,17 @@ Update-Database
 ### Usage
 
 - To run without installation, the site is hosted on azure: https://tutappapi-yehonatan.azurewebsites.net/v1/api/articles, add version (v1) at the start of each route.
-- To use the API, you can send HTTP requests to these endpoints using a tool such as Postman or cURL or use TutApp frontend app.
+- To use the API, you can send HTTP requests to the API's endpoints using a tool such as Postman or swagger.
 - Api Documentation in Swagger: https://tutappapi-yehonatan.azurewebsites.net/swagger/index.html
-- Authorization implemented in swagger, log in & then copy the token from the response, click authorize & paste the token.
+- Authorization implemented in swagger, register, login & then copy the token from the response:
+
+<a href="https://ibb.co/yVnPBGc"><img src="https://i.ibb.co/Fnb3qNL/response.png" alt="response" border="0"></a>
+
+- click authorize & paste the token:
+
+<a href="https://ibb.co/TmWrh8M"><img src="https://i.ibb.co/5BK2c8h/auth.png" alt="auth" border="0"></a>
+
+- now you are authorized to access routes that was protected (according to your role's authorization level)
 
 ### Features
 
@@ -55,7 +63,6 @@ Update-Database
 - Database is created with Entity Framework Code First.
 - Data is seeded on installation.
 - queries are written in LINQ.
-- The Db connector the generic repository is Singleton.
 - Usage of Repository Pattern & implementation of dependency injection.
 - Usage of AutoMapper & DTO's.
 - Usage of OData queries for filtering/ordering/sorting.
@@ -65,7 +72,6 @@ Update-Database
 - Identity Core usage.  
 - Caching: responses are saved in cache for 10 seconds.
 - Api Versioning for possiable future development.
-- Passwords are hashed.
 
 ### Troubleshooting
 If you encounter any issues when using the TutApp API, please refer to the project's GitHub Issues page to see if a solution has already been proposed. If not, you can open a new issue to report the problem.
