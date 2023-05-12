@@ -40,22 +40,21 @@ Update-Database
 ### Usage
 
 - To run without installation, the site is hosted on azure: https://tutappapi-yehonatan.azurewebsites.net/v1/api/articles, add version (v1) at the start of each route.
-- To use the API, you can send HTTP requests to the API's endpoints using a tool such as Postman or swagger.
-- Api Documentation in Swagger: https://tutappapi-yehonatan.azurewebsites.net/swagger/index.html.
-- Authorization implemented in swagger, register, login & then copy the token from the response:
+- Full Api Documentation in Swagger: https://tutappapi-yehonatan.azurewebsites.net/swagger/index.html, please follow the next instructions:
+
+  - To use the API, you can send HTTP requests to the API's endpoints using a tool such as Postman or swagger.
+  - Authorization implemented in swagger, register, login & then copy the token from the response.
+  - click authorize & paste the token.
+  - now you are authorized to access routes that was protected (according your role's authorization level).
+  - to log out click "logout" in the authorization window.
 
 <p align="center">
   <a href="https://ibb.co/yVnPBGc"><img src="https://i.ibb.co/Fnb3qNL/response.png" alt="response" border="0"></a>
 </p>
-
-- click authorize & paste the token:
-
 <p align="center">
   <a href="https://ibb.co/TmWrh8M"><img src="https://i.ibb.co/5BK2c8h/auth.png" alt="auth" border="0"></a>
 </p>
 
-- now you are authorized to access routes that was protected (according your role's authorization level).
-- to log out click "logout" in the authorization window.
 
 ### Features
 
