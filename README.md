@@ -11,6 +11,8 @@ The TutApp API is a RESTful API that provides users with access to a variety of 
 
 ### Installation
 
+To skip installation & use without installing please continue to [usage section](#usage).
+
 To install the TutApp API, follow these steps:
 
 - Clone the repository to your local machine using the following command:
@@ -74,7 +76,7 @@ Update-Database
 - JWT Authentication.
 - Authorization: 3 different user roles - ["User", "Creator", "Admin"].
 - Identity Core usage.  
-- Caching: responses are saved in cache for 10 seconds.
+- Caching custom Middleware: responses are saved in cache for 10 seconds.
 - Api Versioning for possiable future development.
 
 ### Troubleshooting
