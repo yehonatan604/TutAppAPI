@@ -39,7 +39,7 @@ Update-Database
 
 - To run without installation, the site is hosted on azure: https://tutappapi-yehonatan.azurewebsites.net/v1/api/articles, add version (v1) at the start of each route.
 - To use the API, you can send HTTP requests to the API's endpoints using a tool such as Postman or swagger.
-- Api Documentation in Swagger: https://tutappapi-yehonatan.azurewebsites.net/swagger/index.html
+- Api Documentation in Swagger: https://tutappapi-yehonatan.azurewebsites.net/swagger/index.html.
 - Authorization implemented in swagger, register, login & then copy the token from the response:
 
 <p align="center">
@@ -75,7 +75,7 @@ Update-Database
 - Usage of OData queries for filtering/ordering/sorting.
 - Global Exception Handling custom Middleware for Auth Controller with custom exceptions.
 - JWT Authentication.
-- Authorization: 3 different user roles - ["User", "Creator", "Admin"].
+- Authorization: 3 user roles - ["User", "Creator", "Admin"].
 - Identity Core usage.  
 - Caching custom Middleware: responses are saved in cache for 10 seconds.
 - Api Versioning for possiable future development.
