@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
 using Tut.Data.SiteDbContext;
 using TutApp.Api.Controllers;
+using TutApp.Api.Middleware;
 using TutApp.Core.Configurations;
 using TutApp.Core.Contracts;
 using TutApp.Core.Repository;
@@ -17,7 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 #region Add Services
 
-// DbContextFactory
+// DbContext
 var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
 builder.Services.AddDbContext<SiteDbContext>(options =>
 {
@@ -31,8 +30,7 @@ builder.Services.AddIdentityCore<User>()
                 .AddEntityFrameworkStores<SiteDbContext>()
                 .AddDefaultTokenProviders();
 
-// Swager
-
+// Swager (Authentication implemented in Swagger)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -88,7 +86,6 @@ builder.Services.AddApiVersioning(options =>
         new MediaTypeApiVersionReader("ver")
     );
 });
-
 builder.Services.AddVersionedApiExplorer(options =>
 {
     options.GroupNameFormat = "'v'VVV";
@@ -98,16 +95,13 @@ builder.Services.AddVersionedApiExplorer(options =>
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 
-
-// Repository Pattern
+// Repository
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<IStarsRepository, StarsRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
-
-
 
 // Controllers
 builder.Services.AddControllers();
@@ -137,35 +131,13 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-
 app.UseMiddleware<ExceptionMiddleware>();
-
 app.UseHttpsRedirection();
-
 app.UseCors("myPolicy");
-
-// Caching
 app.UseResponseCaching();
-
-app.Use(async (context, next) =>
-{
-    context.Response.GetTypedHeaders().CacheControl =
-        new Microsoft.Net.Http.Headers.CacheControlHeaderValue()
-        {
-            Public = true,
-            MaxAge = TimeSpan.FromSeconds(10),
-        };
-
-    context.Response.Headers[Microsoft.Net.Http.Headers.HeaderNames.Vary] =
-        new string[] { "Accept-Encoding" };
-
-    await next();
-});
-
+app.UseMiddleware<CachingMiddleware>();
 app.UseAuthentication();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 #endregion HTTP Request Pipeline
