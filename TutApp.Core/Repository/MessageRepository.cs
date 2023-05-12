@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Tut.Model.SiteDbContext;
+using Tut.Data.SiteDbContext;
 using TutApp.Core.Contracts;
 using TutApp.Core.DTOs;
 using TutApp.Data.Models;
@@ -8,7 +8,7 @@ namespace TutApp.Core.Repository
 {
     public class MessageRepository : GenericRepository<Message>, IMessageRepository
     {
-        public MessageRepository(IDbContextFactory<SiteDbContext> dbFactory) : base(dbFactory)
+        public MessageRepository(SiteDbContext db) : base(db)
         {
         }
 

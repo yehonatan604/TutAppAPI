@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using Tut.Model.SiteDbContext;
+using Tut.Data.SiteDbContext;
 using TutApp.Api.Controllers;
 using TutApp.Core.Configurations;
 using TutApp.Core.Contracts;
@@ -19,10 +19,62 @@ var builder = WebApplication.CreateBuilder(args);
 
 // DbContextFactory
 var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
-builder.Services.AddDbContextFactory<SiteDbContext>(options =>
+builder.Services.AddDbContext<SiteDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
 });
+
+// IdentityCore
+builder.Services.AddIdentityCore<User>()
+                .AddRoles<IdentityRole>()
+                .AddTokenProvider<DataProtectorTokenProvider<User>>("TutApi")
+                .AddEntityFrameworkStores<SiteDbContext>()
+                .AddDefaultTokenProviders();
+
+// Swager
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Title = "TutApi",
+        Version = "v1"
+    });
+    options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new OpenApiSecurityScheme
+    {
+        Description = @"JWT Authorization header using Bearer scheme.
+                        Enter 'Bearer' [space] and your token in the text input below.
+                        Exapmle: 'Bearer 1234abcdeFg'",
+        Name = "Authorization",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.ApiKey,
+        Scheme = JwtBearerDefaults.AuthenticationScheme
+    });
+    options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = JwtBearerDefaults.AuthenticationScheme
+                },
+                Scheme = "0auth2",
+                Name = JwtBearerDefaults.AuthenticationScheme,
+                In = ParameterLocation.Header
+            },
+            new List<string>()
+        }
+    });
+});
+
+// CORS
+builder.Services.AddCors(options => options.AddPolicy(
+    "myPolicy", c => c.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()
+    )
+);
 
 // Versioning
 builder.Services.AddApiVersioning(options =>
@@ -43,91 +95,25 @@ builder.Services.AddVersionedApiExplorer(options =>
     options.SubstituteApiVersionInUrl = true;
 });
 
-// Swager
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(options =>
-{
-    options.SwaggerDoc("v1", new OpenApiInfo
-    {
-        Title = "Tut Api",
-        Version = "v1"
-    });
-    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Description = @"JWT Authorization header using Bearer scheme.
-                        Enter 'Bearer' [space] and your token in the text input below.
-                        Exapmle: 'Bearer 1234abcdeFg'",
-        Name = "Authorization",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
-    });
-    options.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                },
-                Scheme = "0auth2",
-                Name = "Bearer",
-                In = ParameterLocation.Header
-            },
-            new List<string>()
-        }
-    });
-});
-
 // AutoMapper
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 
-// OData
-builder.Services.AddControllers().AddOData(options =>
-{
-    options.Select().Filter().OrderBy();
-});
 
 // Repository Pattern
-builder.Services.AddSingleton(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
+builder.Services.AddScoped<IStarsRepository, StarsRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<IArticleRepository, ArticleRepository>();
 builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 
-// IdentityCore
-builder.Services.AddIdentityCore<User>()
-                .AddRoles<IdentityRole>()
-                .AddTokenProvider<DataProtectorTokenProvider<User>>("TutApi")
-                .AddEntityFrameworkStores<SiteDbContext>()
-                .AddDefaultTokenProviders();
+
 
 // Controllers
 builder.Services.AddControllers();
 
 // JwtBearer
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; // "Bearer"
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; // "Bearer"
-}).AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters()
-    {
-        ValidateIssuerSigningKey = true,
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = true,
-        ClockSkew = TimeSpan.Zero,
-        ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
-        ValidAudience = builder.Configuration["JwtSettings:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey
-            (Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]!))
-    };
-});
+builder.Services.AddAuthentication().AddJwtBearer();
 
 // Caching
 builder.Services.AddResponseCaching(options =>
@@ -136,11 +122,12 @@ builder.Services.AddResponseCaching(options =>
     options.UseCaseSensitivePaths = true;
 });
 
-// CORS
-builder.Services.AddCors(x => x.AddPolicy(
-    "myPolicy", c => c.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()
-    )
-);
+// OData
+builder.Services.AddControllers().AddOData(options =>
+{
+    options.Select().Filter().OrderBy();
+});
+
 
 #endregion Add Services
 

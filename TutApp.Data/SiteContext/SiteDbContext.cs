@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TutApp.Data.Configurations;
 using TutApp.Data.Models;
 
-namespace Tut.Model.SiteDbContext
+namespace Tut.Data.SiteDbContext
 {
     public class SiteDbContext : IdentityDbContext<User>
     {
@@ -12,6 +12,7 @@ namespace Tut.Model.SiteDbContext
         public DbSet<Message> Messages { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Stars> Stars { get; set; }
 
         // Ctor
         public SiteDbContext(DbContextOptions options) : base(options) { }

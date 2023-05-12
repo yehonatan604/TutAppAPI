@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Tut.Model.SiteDbContext;
+using Tut.Data.SiteDbContext;
 using TutApp.Core.Contracts;
 using TutApp.Core.DTOs;
 using TutApp.Core.Exceptions;
@@ -14,13 +14,13 @@ namespace TutApp.Api.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly SiteDbContext _context;
+        private readonly SiteDbContext _db;
         private readonly IMapper _mapper;
         private readonly IAuthRepository _repo;
 
-        public AuthController(IDbContextFactory<SiteDbContext> dbContextFactory, IMapper mapper, IAuthRepository repo)
+        public AuthController(SiteDbContext db, IMapper mapper, IAuthRepository repo)
         {
-            _context = dbContextFactory.CreateDbContext();
+            _db = db;
             _mapper = mapper;
             _repo = repo;
         }
@@ -66,7 +66,7 @@ namespace TutApp.Api.Controllers
         [Route("checkEmailExist/{email}")]
         public async Task<ActionResult<bool>> CheckEmailExist(string email)
         {
-            return Ok(await _context.Users.AnyAsync(u => u.Email == email));
+            return Ok(await _db.Users.AnyAsync(u => u.Email == email));
         }
 
         //PUT: api/Auth/updateUser
@@ -105,7 +105,7 @@ namespace TutApp.Api.Controllers
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult<bool>> GetUsers()
         {
-            return Ok(await _context.Users.ToListAsync());
+            return Ok(await _db.Users.ToListAsync());
         }
 
         // GET: api/Auth/getUser

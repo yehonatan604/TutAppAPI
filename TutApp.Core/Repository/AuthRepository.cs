@@ -6,7 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Tut.Model.SiteDbContext;
+using Tut.Data.SiteDbContext;
 using TutApp.Core.Contracts;
 using TutApp.Core.DTOs;
 using TutApp.Data.Models;
@@ -26,10 +26,10 @@ namespace TutApp.Core.Repository
 
         public AuthRepository(
             IMapper mapper,
-            IDbContextFactory<SiteDbContext> dbContextFactory,
+            SiteDbContext db,
             UserManager<User> _manager,
             IConfiguration config
-        ) : base(dbContextFactory)
+        ) : base(db)
         {
             _mapper = mapper;
             this._manager = _manager;
@@ -108,7 +108,7 @@ namespace TutApp.Core.Repository
 
         private async Task<string> GenerateToken()
         {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Keys:Key"]!));
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("this is my amazing very Secret key for authentication"));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var roles = await _manager.GetRolesAsync(_user);
@@ -120,13 +120,14 @@ namespace TutApp.Core.Repository
                 new Claim(JwtRegisteredClaimNames.Sub, _user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Email, _user.Email),
+                new Claim("uid", _user.Id),
             }.Union(userClaims).Union(roleClaims);
 
             var token = new JwtSecurityToken(
-                issuer: _config["JwtSettings:Issuer"],
-                audience: _config["JwtSettings:Audience"],
+                issuer: "TutApi",
+                audience: "TutApiClient",
                 claims: claims,
-                expires: DateTime.Now.AddDays(Convert.ToInt16(_config["JwtSettings:DurationInDays"])),
+                expires: DateTime.Now.AddDays(2),
                 signingCredentials: credentials
                 );
 

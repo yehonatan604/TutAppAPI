@@ -17,6 +17,8 @@ namespace TutApp.Core.Configurations
             CreateMap<User, UserUpdateDTO>().ReverseMap();
 
             CreateMap<Message, MessageGetDTO>().ReverseMap();
+            
+            CreateMap<Stars, StarsPostDTO>().ReverseMap();
         }
     }
 }

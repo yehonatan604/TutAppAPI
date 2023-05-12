@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Tut.Model.SiteDbContext;
+using Tut.Data.SiteDbContext;
 using TutApp.Core.Contracts;
 
 namespace TutApp.Core.Repository
@@ -7,9 +7,9 @@ namespace TutApp.Core.Repository
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
         protected readonly SiteDbContext _db;
-        public GenericRepository(IDbContextFactory<SiteDbContext> dbFactory)
+        public GenericRepository(SiteDbContext db)
         {
-            _db = dbFactory.CreateDbContext();
+            _db = db;
         }
 
         //GET

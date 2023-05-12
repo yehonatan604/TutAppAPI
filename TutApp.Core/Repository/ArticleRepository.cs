@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
-using Tut.Model.SiteDbContext;
+using Tut.Data.SiteDbContext;
 using TutApp.Core.Contracts;
 using TutApp.Core.DTOs;
 using TutApp.Data.Models;
@@ -11,7 +11,7 @@ namespace TutApp.Core.Repository
     public class ArticleRepository : GenericRepository<Article>, IArticleRepository
     {
         private readonly IMapper _mapper;
-        public ArticleRepository(IDbContextFactory<SiteDbContext> dbFactory, IMapper mapper) : base(dbFactory)
+        public ArticleRepository(SiteDbContext db, IMapper mapper) : base(db)
         {
             _mapper = mapper;
             
