@@ -1,5 +1,7 @@
 # TutApp API
-The TutApp API is a RESTful API that provides users with access to a variety of tutorials on different topics. The API allows users to search for tutorials by keyword, category, and author, as well as view and download tutorials in various formats.
+The TutApp API is a RESTful API that provides users with access to a variety of tutorials on different topics,<br>
+the API allows users to search for tutorials by keyword, category, and author & more,<br>
+it also allows Creators & Admin to access, create, edit & delete articles.
 
 ## Table of Contents
 
@@ -57,7 +59,7 @@ Update-Database
 
 ### Features
 
-- User Registration: - In this module user must register himself by filling some personal details.
+- User Registration: - User must register himself by filling some personal details.
 - User Login: After registration user will enter Email and password for logging in order to get access to the system.
 - Search in Articles: User can search/sort articles.
 - Create articles: Creators can create new articles.
