@@ -7,6 +7,7 @@ namespace TutApp.Data.SiteContext
 {
     public class SiteDbContextFactory : IDesignTimeDbContextFactory<SiteDbContext>
     {
+        // Gets the connection string from appsettings.json
         public SiteDbContext CreateDbContext(string[] args)
         {
             string directory = Directory.GetParent(Environment.CurrentDirectory)!.ToString();

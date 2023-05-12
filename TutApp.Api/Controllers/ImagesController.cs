@@ -34,7 +34,6 @@ namespace TutApp.Api.Controllers
         }
 
         // PUT: api/Images/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutImage(int id, Image image)
         {
@@ -49,7 +48,6 @@ namespace TutApp.Api.Controllers
         }
 
         // POST: api/Images
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Image>> PostImage(Image image)
         {

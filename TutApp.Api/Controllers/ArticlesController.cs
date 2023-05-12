@@ -49,7 +49,6 @@ namespace TutApp.Api.Controllers
         }
 
         // PUT: api/Articles/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
         [Authorize(Roles = "Creator, Admin")]
         public async Task<IActionResult> PutArticle(ArticlePutDTO articleDto)
@@ -63,7 +62,6 @@ namespace TutApp.Api.Controllers
         }
 
         // POST: api/Articles
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Route("addNewArticle")]
         [Authorize(Roles = "Creator, Admin")]

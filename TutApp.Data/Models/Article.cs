@@ -8,6 +8,7 @@ namespace TutApp.Data.Models
         [Key] 
         public int Id { get; set; }
 
+        [EmailAddress]
         public string UserEmail { get; set; }
 
 

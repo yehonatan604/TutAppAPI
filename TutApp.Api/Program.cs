@@ -132,11 +132,11 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<ExceptionMiddleware>(); // Custom Exceptopn Middleware
 app.UseHttpsRedirection();
 app.UseCors("myPolicy");
 app.UseResponseCaching();
-app.UseMiddleware<CachingMiddleware>();
+app.UseMiddleware<CachingMiddleware>(); // Custom Caching Middleware
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
