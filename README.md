@@ -52,7 +52,8 @@ Update-Database
   <a href="https://ibb.co/TmWrh8M"><img src="https://i.ibb.co/5BK2c8h/auth.png" alt="auth" border="0"></a>
 </p>
 
-- now you are authorized to access routes that was protected (according to your role's authorization level)
+- now you are authorized to access routes that was protected (according your role's authorization level).
+- to log out click "logout" in the authorization window.
 
 ### Features
 
