@@ -17,10 +17,11 @@ var builder = WebApplication.CreateBuilder(args);
 #region Add Services
 
 // DbContext
-var connectionString = builder.Configuration.GetConnectionString("ConnectionString");
+string? GetConnectionString() => builder.Configuration.GetConnectionString("ConnectionString");
+
 builder.Services.AddDbContext<SiteDbContext>(options =>
 {
-    options.UseSqlServer(connectionString);
+    options.UseSqlServer(GetConnectionString());
 });
 
 // IdentityCore
@@ -70,8 +71,7 @@ builder.Services.AddSwaggerGen(options =>
 
 // CORS
 builder.Services.AddCors(options => options.AddPolicy(
-    "myPolicy", c => c.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin()
-    )
+    "myPolicy", c => c.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin())
 );
 
 // Versioning
@@ -96,7 +96,8 @@ builder.Services.AddVersionedApiExplorer(options =>
 builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 
 // Repository
-builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddSingleton(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
 builder.Services.AddScoped<IImageRepository, ImageRepository>();
 builder.Services.AddScoped<IStarsRepository, StarsRepository>();
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
