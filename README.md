@@ -1,5 +1,7 @@
 # TutApp API
-The TutApp API is a RESTful API that provides users with access to a variety of tutorials on different topics. The API allows users to search for tutorials by keyword, category, and author, as well as view and download tutorials in various formats.
+The TutApp API is a RESTful API that provides users with access to a variety of tutorials on different topics,<br>
+the API allows users to search for tutorials by keyword, category, and author & more,<br>
+it also allows Creators & Admin to access, create, edit & delete articles.
 
 ## Table of Contents
 
@@ -10,6 +12,8 @@ The TutApp API is a RESTful API that provides users with access to a variety of 
 [Troubleshooting](#troubleshooting)
 
 ### Installation
+
+To skip installation & use without installing please continue to [usage section](#usage).
 
 To install the TutApp API, follow these steps:
 
@@ -36,25 +40,25 @@ Update-Database
 ### Usage
 
 - To run without installation, the site is hosted on azure: https://tutappapi-yehonatan.azurewebsites.net/v1/api/articles, add version (v1) at the start of each route.
-- To use the API, you can send HTTP requests to the API's endpoints using a tool such as Postman or swagger.
-- Api Documentation in Swagger: https://tutappapi-yehonatan.azurewebsites.net/swagger/index.html
-- Authorization implemented in swagger, register, login & then copy the token from the response:
+- Full Api Documentation in Swagger: https://tutappapi-yehonatan.azurewebsites.net/swagger/index.html, please follow the next instructions:
+
+  - To use the API, you can send HTTP requests to the API's endpoints using a tool such as Postman or swagger.
+  - Authorization implemented in swagger, register, login & then copy the token from the response.
+  - click authorize & paste the token.
+  - now you are authorized to access routes that was protected (according your role's authorization level).
+  - to log out click "logout" in the authorization window.
 
 <p align="center">
   <a href="https://ibb.co/yVnPBGc"><img src="https://i.ibb.co/Fnb3qNL/response.png" alt="response" border="0"></a>
 </p>
-
-- click authorize & paste the token:
-
 <p align="center">
   <a href="https://ibb.co/TmWrh8M"><img src="https://i.ibb.co/5BK2c8h/auth.png" alt="auth" border="0"></a>
 </p>
 
-- now you are authorized to access routes that was protected (according to your role's authorization level)
 
 ### Features
 
-- User Registration: - In this module user must register himself by filling some personal details.
+- User Registration: - User must register himself by filling some personal details.
 - User Login: After registration user will enter Email and password for logging in order to get access to the system.
 - Search in Articles: User can search/sort articles.
 - Create articles: Creators can create new articles.
@@ -72,9 +76,9 @@ Update-Database
 - Usage of OData queries for filtering/ordering/sorting.
 - Global Exception Handling custom Middleware for Auth Controller with custom exceptions.
 - JWT Authentication.
-- Authorization: 3 different user roles - ["User", "Creator", "Admin"].
+- Authorization: 3 user roles - ["User", "Creator", "Admin"].
 - Identity Core usage.  
-- Caching: responses are saved in cache for 10 seconds.
+- Caching custom Middleware: responses are saved in cache for 10 seconds.
 - Api Versioning for possiable future development.
 
 ### Troubleshooting
