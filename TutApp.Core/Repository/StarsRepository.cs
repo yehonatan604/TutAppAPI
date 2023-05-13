@@ -21,11 +21,13 @@ namespace TutApp.Core.Repository
             relevanStars.ForEach(star => totalStars += star.StarsGiven);
             
             var article = await _db.Articles.SingleOrDefaultAsync(item => item.Id == entity.ArticleId);
+            
             if (article != null)
             {
                 article.Stars = (int)Math.Round(totalStars / relevanStars.Count);
                 _db.SaveChanges();
             }
+
             return entity;
         }
     }

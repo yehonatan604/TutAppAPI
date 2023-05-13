@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tut.Data.SiteDbContext;
 
@@ -11,9 +12,11 @@ using Tut.Data.SiteDbContext;
 namespace TutApp.Data.Migrations
 {
     [DbContext(typeof(SiteDbContext))]
-    partial class SiteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230513111437_fixLinksMigration3")]
+    partial class fixLinksMigration3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,21 +55,21 @@ namespace TutApp.Data.Migrations
                         new
                         {
                             Id = "c32f66ed-c960-4cb7-a468-90662e1fb37a",
-                            ConcurrencyStamp = "52386236-8759-4289-9aeb-02e57cfb7eb5",
+                            ConcurrencyStamp = "a0d36fe2-583b-4cec-b93d-957330298924",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "ddc1ddb9-2495-40d6-b278-633bc6ca29c6",
-                            ConcurrencyStamp = "aee05575-a394-4a61-9e40-fd604e26903d",
+                            ConcurrencyStamp = "c2c2070b-13e5-4638-9945-cb426dfbf2ef",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         },
                         new
                         {
                             Id = "4a8a52b2-8c3d-45d2-9fe5-ff01895c5c29",
-                            ConcurrencyStamp = "576cb5ac-7884-4e14-bcc0-a32712ddc614",
+                            ConcurrencyStamp = "3b069a76-ab8e-4fc5-9ca2-ae42e536521d",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -516,7 +519,7 @@ namespace TutApp.Data.Migrations
                         new
                         {
                             Id = 5,
-                            Location = "/tut/assets/Images/iot1.png",
+                            Location = "/assets/Images/iot1.png",
                             Title = "Iot1"
                         },
                         new
@@ -710,17 +713,17 @@ namespace TutApp.Data.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f7669e0b-a2ac-4e30-b390-0b8fe3d7ed36",
-                            DOB = new DateTime(2023, 5, 13, 14, 18, 27, 623, DateTimeKind.Local).AddTicks(5539),
+                            ConcurrencyStamp = "f72b7632-5e35-445f-ab28-3dc4929477b9",
+                            DOB = new DateTime(2023, 5, 13, 14, 14, 37, 157, DateTimeKind.Local).AddTicks(5753),
                             Email = "admin@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
                             Password = "123#Abc123",
-                            PasswordHash = "AQAAAAEAACcQAAAAEImEnil9xnQwkKF4+a4+oxGfXpRs7gbfmtzN/6DEQ7Vs1jlnnsiP6Kl5lrLVUhKuHQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELTzqN2zhtXh8emdMTVT6lCIjve2x+BJVew/6QMdTtIEgLLkUXarmnJdFX2HtFjUZw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7d90d6b7-0c96-43b9-abaf-1d44706034f3",
+                            SecurityStamp = "8370b567-d319-4ed2-bb41-03c25d3a5ab7",
                             TwoFactorEnabled = false,
                             UserName = "Admin",
                             UserStatus = 1,
@@ -730,17 +733,17 @@ namespace TutApp.Data.Migrations
                         {
                             Id = "afa4728b-351f-4e2c-a903-3c80e77848e7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7bc474ca-060b-4e83-a204-69c8566a492e",
-                            DOB = new DateTime(2023, 5, 13, 14, 18, 27, 630, DateTimeKind.Local).AddTicks(7713),
+                            ConcurrencyStamp = "26d1a8c3-af1f-4735-b911-b062c520be8f",
+                            DOB = new DateTime(2023, 5, 13, 14, 14, 37, 165, DateTimeKind.Local).AddTicks(1887),
                             Email = "abed@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ABED@EMAIL.COM",
                             NormalizedUserName = "ABED ZUHIL",
                             Password = "123#Abc123",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHlJXkxaRGCUw31NqLtvfUC1YKWUlTiiY2wqdUOvqdft7o2jixnKuS2yMEEsNS0kYw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPCU79CGmTPHGa1y/1oP71zYoVsrgw+uNrUhJ3vXGJH+8zfFzaB9vaK8RPQo1CcTQA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ba2b532e-0fc2-4dc0-93c4-cdfc3be1d3b1",
+                            SecurityStamp = "fe1cacc8-93f2-4e24-b14e-4219382a044e",
                             TwoFactorEnabled = false,
                             UserName = "Abed Zuhil",
                             UserStatus = 1,
@@ -750,17 +753,17 @@ namespace TutApp.Data.Migrations
                         {
                             Id = "59f65e3a-706c-4056-a0bc-c4597e08599e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f732fa8b-eedc-49a5-8da9-44cdb5b40a2c",
-                            DOB = new DateTime(2023, 5, 13, 14, 18, 27, 638, DateTimeKind.Local).AddTicks(4143),
+                            ConcurrencyStamp = "e45bba17-9d63-4f98-b000-54116416b775",
+                            DOB = new DateTime(2023, 5, 13, 14, 14, 37, 172, DateTimeKind.Local).AddTicks(5878),
                             Email = "erik@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ERIK@EMAIL.COM",
                             NormalizedUserName = "ERIK LEMON",
                             Password = "123#Abc123",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPqeVh7lENJKjinR4rgywij86Pwe6D75YBBdfL+8W3s7yzyAOzIZJCd4UBtzTsNueg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDCCsWlX8zaoTbu4GEqmATEkv7JFz7vo+KyJDqgGJi/O7QsBNix5cbszkyHBsooibw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d7d03128-84c8-4a8d-9660-8e9600f8befd",
+                            SecurityStamp = "39f9b458-1eb3-493f-9067-e450e4313235",
                             TwoFactorEnabled = false,
                             UserName = "Erik Lemon",
                             UserStatus = 1,
@@ -770,17 +773,17 @@ namespace TutApp.Data.Migrations
                         {
                             Id = "41e09971-aa5d-44f2-8dd2-37ab94cb7708",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1c49389b-0d12-4f5c-8d6c-97d550c5d615",
-                            DOB = new DateTime(2023, 5, 13, 14, 18, 27, 647, DateTimeKind.Local).AddTicks(6964),
+                            ConcurrencyStamp = "2aabd7c3-2524-43c2-81c3-a53ada09160d",
+                            DOB = new DateTime(2023, 5, 13, 14, 14, 37, 179, DateTimeKind.Local).AddTicks(9778),
                             Email = "al@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "AL@EMAIL.COM",
                             NormalizedUserName = "AL VISS",
                             Password = "123#Abc123",
-                            PasswordHash = "AQAAAAEAACcQAAAAEM1QV/MI7tZBMPbLQTsQK/bBrzpjKpjl8bfnp9/IMcDT5he/dRipn/XYYpP89lg0iw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENJS3+lebVpLzCHI1r+Axk+UHhGg14E6KXwSqa24mdGOLa3Q8b14MF9d90vjzNz9Qw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bd1f2811-f825-4862-bac2-6fe60afe3644",
+                            SecurityStamp = "cbf6b654-e9e9-4820-9225-6a801ee5e3c1",
                             TwoFactorEnabled = false,
                             UserName = "Al Viss",
                             UserStatus = 1,

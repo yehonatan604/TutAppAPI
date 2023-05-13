@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 using Tut.Data.SiteDbContext;
 using TutApp.Api.Controllers;
 using TutApp.Api.Middleware;
@@ -108,7 +110,26 @@ builder.Services.AddScoped<IAuthRepository, AuthRepository>();
 builder.Services.AddControllers();
 
 // JwtBearer
-builder.Services.AddAuthentication().AddJwtBearer();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme; // "Bearer"
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme; // "Bearer"
+}).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero,
+        ValidIssuer = "TutApi",
+        ValidAudience = "TutApiClient",
+        IssuerSigningKey = new SymmetricSecurityKey
+            (Encoding.UTF8.GetBytes("this is my amazing very Secret key for authentication"!))
+    };
+});
+
 
 // Caching
 builder.Services.AddResponseCaching(options =>
