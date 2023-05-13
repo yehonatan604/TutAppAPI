@@ -11,7 +11,7 @@ it also allows Creators & Admin to access, create, edit & delete articles.
 [Code Features](#code-features) <br>
 [Troubleshooting](#troubleshooting)
 
-### Installation
+## Installation
 
 To skip installation & use without installing please continue to [usage section](#usage).
 
@@ -37,10 +37,10 @@ Update-Database
 ```
 - Run the project in Visual Studio, The API server should now be running on your local machine & you should see Swagger Api Documentation.
 
-### Usage
+## Usage
 
-- To run without installation, the site is hosted on azure: https://tutappapi-yehonatan.azurewebsites.net/v1/api/articles, add version (v1) at the start of each route.
-- Full Api Documentation in Swagger: https://tutappapi-yehonatan.azurewebsites.net/swagger/index.html, please follow the next instructions:
+- To run without installation, the site is hosted on azure: <a>https://tutappapi-yehonatan.azurewebsites.net/v1/api/articles</a>,<br>or please use the [frontend app](https://yehonatan.moravia.co.il/tut/).
+- Full Api Documentation in Swagger: <a>https://tutappapi-yehonatan.azurewebsites.net/swagger/index.html</a>, please follow the next instructions:
 
   - To use the API, you can send HTTP requests to the API's endpoints using a tool such as Postman or swagger.
   - Authorization implemented in swagger, register, login & then copy the token from the response.
@@ -56,7 +56,7 @@ Update-Database
 </p>
 
 
-### Features
+## Features
 
 - User Registration: - User must register himself by filling some personal details.
 - User Login: After registration user will enter Email and password for logging in order to get access to the system.
@@ -65,7 +65,7 @@ Update-Database
 - Massages: User can get & send messages to the admin.
 - Personal: User can edit personal details, Creator can edit/delete his articles aswell.
 
-### Code Features:
+## Code Features:
 
 - The program is divided into 3 projects implementing the N-Tiers Architecture.
 - Database is created with Entity Framework Code First.
@@ -81,5 +81,5 @@ Update-Database
 - Caching custom Middleware: responses are saved in cache for 10 seconds.
 - Api Versioning for possiable future development.
 
-### Troubleshooting
+## Troubleshooting
 If you encounter any issues when using the TutApp API, please refer to the project's GitHub Issues page to see if a solution has already been proposed. If not, you can open a new issue to report the problem.
