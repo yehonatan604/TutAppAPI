@@ -123,10 +123,10 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidateLifetime = true,
         ClockSkew = TimeSpan.Zero,
-        ValidIssuer = "TutApi",
-        ValidAudience = "TutApiClient",
+        ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
+        ValidAudience = builder.Configuration["JwtSettings:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey
-            (Encoding.UTF8.GetBytes("this is my amazing very Secret key for authentication"!))
+            (Encoding.UTF8.GetBytes(builder.Configuration["Keys:Key"]!))
     };
 });
 

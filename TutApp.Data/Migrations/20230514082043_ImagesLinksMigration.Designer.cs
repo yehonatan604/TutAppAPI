@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tut.Data.SiteDbContext;
 
@@ -11,9 +12,11 @@ using Tut.Data.SiteDbContext;
 namespace TutApp.Data.Migrations
 {
     [DbContext(typeof(SiteDbContext))]
-    partial class SiteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230514082043_ImagesLinksMigration")]
+    partial class ImagesLinksMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,21 +55,21 @@ namespace TutApp.Data.Migrations
                         new
                         {
                             Id = "c32f66ed-c960-4cb7-a468-90662e1fb37a",
-                            ConcurrencyStamp = "dc76be62-03e2-4af5-8e87-bb586d951b44",
+                            ConcurrencyStamp = "5dabb985-04f0-4ed2-b0e9-695171901f1d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = "ddc1ddb9-2495-40d6-b278-633bc6ca29c6",
-                            ConcurrencyStamp = "283cd6d1-b4b5-4248-9ddf-31c7e7b9c319",
+                            ConcurrencyStamp = "7791e761-f759-43fb-94a6-f3365f9ec2cb",
                             Name = "Creator",
                             NormalizedName = "CREATOR"
                         },
                         new
                         {
                             Id = "4a8a52b2-8c3d-45d2-9fe5-ff01895c5c29",
-                            ConcurrencyStamp = "acf68246-ed00-4963-99a2-89e2d99d351c",
+                            ConcurrencyStamp = "31de0832-3595-4c11-a718-47edc36770fe",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -492,67 +495,67 @@ namespace TutApp.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/programming1.jpg",
+                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/programming1.png",
                             Title = "Programming1"
                         },
                         new
                         {
                             Id = 2,
-                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/programming2.jpg",
+                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/programming2.png",
                             Title = "Programming2"
                         },
                         new
                         {
                             Id = 3,
-                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/programming3.jpg",
+                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/programming3.png",
                             Title = "Programming3"
                         },
                         new
                         {
                             Id = 4,
-                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/programming4.jpg",
+                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/programming4.png",
                             Title = "Programming4"
                         },
                         new
                         {
                             Id = 5,
-                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/iot1.jpg",
+                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/iot1.png",
                             Title = "Iot1"
                         },
                         new
                         {
                             Id = 6,
-                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/iot2.jpg",
+                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/iot2.png",
                             Title = "Iot2"
                         },
                         new
                         {
                             Id = 9,
-                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/internet1.jpg",
+                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/internet1.png",
                             Title = "Internet1"
                         },
                         new
                         {
                             Id = 10,
-                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/internet2.jpg",
+                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/internet2.png",
                             Title = "Internet2"
                         },
                         new
                         {
                             Id = 11,
-                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/internet3.jpg",
+                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/internet3.png",
                             Title = "Internet3"
                         },
                         new
                         {
                             Id = 13,
-                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/design1.jpg",
+                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/design1.png",
                             Title = "Design1"
                         },
                         new
                         {
                             Id = 14,
-                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/design2.jpg",
+                            Location = "https://yehonatan.moravia.co.il/tut/assets/Images/design2.png",
                             Title = "Design2"
                         });
                 });
@@ -710,17 +713,17 @@ namespace TutApp.Data.Migrations
                         {
                             Id = "8e445865-a24d-4543-a6c6-9443d048cdb9",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "eaa2f56a-37a2-4dad-a2a2-d1e20b0e20ce",
-                            DOB = new DateTime(2023, 5, 14, 13, 17, 27, 139, DateTimeKind.Local).AddTicks(7172),
+                            ConcurrencyStamp = "ad691a50-d5a9-4999-a8c6-819e5df7577f",
+                            DOB = new DateTime(2023, 5, 14, 11, 20, 43, 264, DateTimeKind.Local).AddTicks(4219),
                             Email = "admin@email.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EMAIL.COM",
                             NormalizedUserName = "ADMIN",
                             Password = "123#Abc123",
-                            PasswordHash = "AQAAAAEAACcQAAAAECCNEGsrkgKkjaIttkdEkPpQClbN3SIqdSBH3zdT8/cHEqHK3Z3+GQGoyTqnJ/ay+w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAyAEQQaF1hPpYsxItPUlewXgZkr5uqJcRPBGLV7fnrrh0a9Mb0ZdT0HP20x4gtFYg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "72072e97-f383-4449-bccc-8e9ef8a9115d",
+                            SecurityStamp = "b3597f14-2c2d-4d86-ac4d-92d74ec4e7da",
                             TwoFactorEnabled = false,
                             UserName = "Admin",
                             UserStatus = 1,
@@ -730,17 +733,17 @@ namespace TutApp.Data.Migrations
                         {
                             Id = "afa4728b-351f-4e2c-a903-3c80e77848e7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fca004b9-0f65-4d3d-8c82-a2ada4978abe",
-                            DOB = new DateTime(2023, 5, 14, 13, 17, 27, 147, DateTimeKind.Local).AddTicks(8291),
+                            ConcurrencyStamp = "90751bdc-83dc-4ab6-a57d-909a867f0220",
+                            DOB = new DateTime(2023, 5, 14, 11, 20, 43, 271, DateTimeKind.Local).AddTicks(1217),
                             Email = "abed@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ABED@EMAIL.COM",
                             NormalizedUserName = "ABED ZUHIL",
                             Password = "123#Abc123",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHBCbFKDZ/46Cn5nvkEmmOk4EKWOkvc1rKDDNkMXtkdDrrL95tWoe7CnL/GZursfkA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELmI+U1sc1dJbk5uk1ijVWIE84mgQ2oJoO8j1in+K0i2iKTCfuoNNQ+GZXdBWkVcRQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e5cf0f51-df0b-4796-bf32-07b12a31bffe",
+                            SecurityStamp = "475f5e12-3dd7-4925-b207-d96c5babc223",
                             TwoFactorEnabled = false,
                             UserName = "Abed Zuhil",
                             UserStatus = 1,
@@ -750,17 +753,17 @@ namespace TutApp.Data.Migrations
                         {
                             Id = "59f65e3a-706c-4056-a0bc-c4597e08599e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3f6f3851-6d20-4745-ac56-b7778bbe703a",
-                            DOB = new DateTime(2023, 5, 14, 13, 17, 27, 155, DateTimeKind.Local).AddTicks(6477),
+                            ConcurrencyStamp = "c9a6b466-a8f0-4452-8620-b59ec1ba1e3a",
+                            DOB = new DateTime(2023, 5, 14, 11, 20, 43, 278, DateTimeKind.Local).AddTicks(570),
                             Email = "erik@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ERIK@EMAIL.COM",
                             NormalizedUserName = "ERIK LEMON",
                             Password = "123#Abc123",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJABrDlgqNIOjgiHHWnNIxnCqoioQGNFoByBgpgH3F/RXlwUy+Faxi79deDgWQ1Rvw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOUK33fjxAWJWBH9Z68HX7RfnnIC+XcUhU8uVo281s2x4YjduNG5ACP+zYX9j5Mx4Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "aece2c07-23d0-4992-a01c-6ca420665183",
+                            SecurityStamp = "8208afd8-db3c-46e4-a306-2f478d466482",
                             TwoFactorEnabled = false,
                             UserName = "Erik Lemon",
                             UserStatus = 1,
@@ -770,17 +773,17 @@ namespace TutApp.Data.Migrations
                         {
                             Id = "41e09971-aa5d-44f2-8dd2-37ab94cb7708",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "153ef6c5-24ed-4a1d-8a60-f8d1610315d9",
-                            DOB = new DateTime(2023, 5, 14, 13, 17, 27, 163, DateTimeKind.Local).AddTicks(8507),
+                            ConcurrencyStamp = "f0a194b1-3cf3-4a5f-b508-9841bef51c03",
+                            DOB = new DateTime(2023, 5, 14, 11, 20, 43, 284, DateTimeKind.Local).AddTicks(8965),
                             Email = "al@email.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "AL@EMAIL.COM",
                             NormalizedUserName = "AL VISS",
                             Password = "123#Abc123",
-                            PasswordHash = "AQAAAAEAACcQAAAAECDB2crcnPJQHG5E9DCHbouHQa7GK/qIGsDI+Yat8GsEKqFiqKUiLg0w91rgLd8vyw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEC6dU2RwMieP9+UnMqv0L0mB5KhJpRkAw8QnP66i575PHlnIFw32uQK1pk/e5PCFCw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8555f50a-c415-46f1-85fd-887b7ca2e346",
+                            SecurityStamp = "fa181fd4-0025-4b0e-8adc-830c8928120b",
                             TwoFactorEnabled = false,
                             UserName = "Al Viss",
                             UserStatus = 1,

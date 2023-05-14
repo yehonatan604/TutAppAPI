@@ -31,30 +31,9 @@ namespace TutApp.Api.Controllers
             return Ok(await _repo.GetAllAsync());
         }
 
-        // GET: api/Stars/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Stars>> GetStars(int id)
-        {
-            var stars = await _repo.GetAsync(id);
-            return stars == null ? NotFound(id) : Ok(stars);
-        }
-
-        // PUT: api/Stars/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutStars(int id, Stars stars)
-        {
-            if (id != stars.Id)
-            {
-                return BadRequest();
-            }
-
-            await _repo.UpdateAsync(stars);
-
-            return NoContent();
-        }
-
         // POST: api/Stars
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Stars>> PostStars(StarsPostDTO starsDTO)
         {
             Stars stars = _mapper.Map<Stars>(starsDTO);

@@ -10,6 +10,7 @@ namespace TutApp.Api.Controllers
     [ApiVersion("1.0")]
     [ApiController]
     [EnableQuery]
+    [ResponseCache(NoStore = true, Location = ResponseCacheLocation.None)]
     public class ImagesController : ControllerBase
     {
         private readonly IImageRepository _repo;
