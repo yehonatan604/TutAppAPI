@@ -40,7 +40,7 @@ Update-Database
 
 ## Usage
 
-- To run without installation, the site is hosted on azure: <a>https://tutappapi-yehonatan.azurewebsites.net/swagger</a>,<br>or please use the [frontend app](https://yehonatan.moravia.co.il/tut/).
+- To run without installation, the backend app is hosted on azure: <a>https://tutappapi-yehonatan.azurewebsites.net/swagger</a>,<br>or please use the [frontend app](https://yehonatan.moravia.co.il/tut/).
 - Full Api Documentation in Swagger: <a>https://tutappapi-yehonatan.azurewebsites.net/swagger/index.html</a>, please follow the next instructions:
 
   - To use the API, you can send HTTP requests to the API's endpoints using a tool such as Postman or swagger.
