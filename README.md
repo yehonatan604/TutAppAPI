@@ -26,10 +26,15 @@ git clone https://github.com/yehonatan604/TutApp.git
 - Open the solution file TutApp.sln in Visual Studio.
 - Build the solution to restore NuGet packages and compile the project.
 - Create a new Microsoft SQL Server database to store the application data.
-- Open the file appsettings.json located in the TutApp project folder and modify the following connection string with your own Microsoft SQL Server database connection string:
-```bash
-"ConnectionStrings": {
-  "TutAppDbConnection": "Server=<your-server-name>;Database=<your-database-name>;Trusted_Connection=True;MultipleActiveResultSets=true"
+- Open the secrets.json file & paste the next keys (please modify the following connection string with your own Microsoft SQL Server database connection string & secret key):
+- ```bash
+{
+  "ConnectionStrings": {
+    "ConnectionString": "Server=yehonatan;Database=TutAppDb;Trusted_Connection = True;TrustServerCertificate= True;"
+  },
+  "Keys": {
+    "Key":  "sdfkjh89lj3eljfhglkjg798654hfdiy54iuhgdfyt954htkjhyfd7gih5kthgi7dfgi5rieuthlerjdfygi5"
+  }
 }
 ```
 - Open the Package Manager Console in Visual Studio, select the TutApp.Data project, and run the following command to create the database schema:
@@ -39,10 +44,6 @@ Update-Database
 - Run the project in Visual Studio, The API server should now be running on your local machine & you should see Swagger Api Documentation.
 
 ## Usage
-
-- To run without installation, the backend app is hosted on azure: <a>https://tutappapi-yehonatan.azurewebsites.net/swagger</a>,<br>or please use the [frontend app](https://yehonatan.moravia.co.il/tut/).
-- Full Api Documentation in Swagger: <a>https://tutappapi-yehonatan.azurewebsites.net/swagger/index.html</a>, please follow the next instructions:
-
   - To use the API, you can send HTTP requests to the API's endpoints using a tool such as Postman or swagger.
   - Authorization implemented in swagger, register, login & then copy the token from the response.
   - click authorize & paste the token.
