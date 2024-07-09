@@ -27,7 +27,7 @@ git clone https://github.com/yehonatan604/TutApp.git
 - Build the solution to restore NuGet packages and compile the project.
 - Create a new Microsoft SQL Server database to store the application data.
 - Open the secrets.json file & paste the next keys (please modify the following connection string with your own Microsoft SQL Server database connection string & secret key):
-- ```bash
+```bash
 {
   "ConnectionStrings": {
     "ConnectionString": "Server=yehonatan;Database=TutAppDb;Trusted_Connection = True;TrustServerCertificate= True;"
